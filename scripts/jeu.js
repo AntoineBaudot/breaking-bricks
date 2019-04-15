@@ -1,5 +1,5 @@
 
-let canvas = document.getElementById("myCanvas");
+const canvas = document.querySelector("#myCanvas");
 let ctx = canvas.getContext("2d");
 const game = document.querySelector('#game')
 
@@ -14,8 +14,8 @@ let posXMax = document.getElementById('game').offsetWidth,
     dirY = -1, //mettre à 1 pour aller vers le bas
     time = 10,
     step = 10
-let start = setInterval(function () {
 
+let start = setInterval(function () {
     posX += dirX * step                //On ajoute dirX*step à posX
     posY += dirY * step               //idem pour posY
     if (posX >= posXMax - 10 || posX <= 0) {//if (posX>= posXMax || posX<=0)
@@ -26,7 +26,6 @@ let start = setInterval(function () {
     }
 
     //Balle qui touche les briques
-
       for(let c=0; c<brickColumnCount; c++) {
           for(let r=0; r<brickRowCount; r++) {
               let b = bricks[c][r];
