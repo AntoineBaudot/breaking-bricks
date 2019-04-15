@@ -53,7 +53,7 @@ let brickRowCount = 3;
 let brickColumnCount = 8;
 let brickWidth = 75;
 let brickHeight = 20;
-let brickPadding = 10;
+let brickPadding = 20;
 let brickOffsetTop = 30;
 let brickOffsetLeft = 30;
 
