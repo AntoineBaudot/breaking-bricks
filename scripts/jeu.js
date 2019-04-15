@@ -185,12 +185,10 @@ function draw() {
     }
     if(y + dy > canvas.height) {
         dy = -dy;
-        score--;
     }
     if (y + dy < ballRadius) {
         dy = -dy;
     }
-
 
     else if (y + dy > canvas.height - ballRadius) {
         if (x > paddleX && x < paddleX + paddleWidth) {
@@ -227,6 +225,7 @@ function drawScore() {
     ctx.font = "16px Arial";
     ctx.fillStyle = "#0095DD";
     ctx.fillText("Score: "+score, 8, 20);
+   let img = document.getElementById("image");
 }
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -241,6 +240,8 @@ function draw() {
     if(y + dy > canvas.height) {
         dy = -dy;
         score--;
+        document.getElementById("image").style.visibility = "hidden";
+
     }
     if (y + dy < ballRadius) {
         dy = -dy;
