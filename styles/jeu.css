@@ -8,8 +8,8 @@ body {
 
 
 #game {
-    width: 400px;
-    height: 300px;
+    width: 800px;
+    height: 600px;
     margin: 20px;
     border: thin solid  black;
     position: relative;
@@ -29,3 +29,5 @@ body {
     background-color: brown;
 
 }
+
+canvas { background: #eee; }
