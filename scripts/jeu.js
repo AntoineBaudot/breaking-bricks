@@ -1,10 +1,10 @@
 
-
-
-/************GESTION BALLE************/
 let canvas = document.getElementById("myCanvas");
 let ctx = canvas.getContext("2d");
 const game = document.querySelector('#game')
+
+/************GESTION BALLE************/
+
 const ball = document.querySelector('#ball')
 let posXMax = document.getElementById('game').offsetWidth,
     posYMax = document.getElementById('game').offsetHeight,
@@ -12,9 +12,8 @@ let posXMax = document.getElementById('game').offsetWidth,
     posY = Math.floor(Math.random() * posYMax / 10) * 10,
     dirX = 1, //mettre à -1 pour aller vers la gauche
     dirY = -1, //mettre à 1 pour aller vers le bas
-    time = 20,
+    time = 10,
     step = 10
-
 let start = setInterval(function () {
 
     posX += dirX * step                //On ajoute dirX*step à posX
@@ -25,20 +24,22 @@ let start = setInterval(function () {
     } if (posY >= posYMax - 10 || posY <= 0) {//if (posY>=posYMAX || posY <=0)
         dirY = -dirY//on inverser dirX
     }
-    for(let c=0; c<brickColumnCount; c++) {
-        for(let r=0; r<brickRowCount; r++) {
-            let b = bricks[c][r];
-            if(posX > b.x && posX < b.x+brickWidth && posY > b.y && posY < b.y+brickHeight) {
-                dirY=-dirY;
-                b.status = 0;
-            }
-        }
-    }
+
+    //Balle qui touche les briques
+
+      for(let c=0; c<brickColumnCount; c++) {
+          for(let r=0; r<brickRowCount; r++) {
+              let b = bricks[c][r];
+              if(posX > b.x && posX < b.x+brickWidth && posY > b.y && posY < b.y+brickHeight) {
+                  dirY=-dirY;
+                  b.status = 0;
+              }
+          }
+      }
+
+
     ball.style.left = posX + 'px'//placer balle poseX et posY
     ball.style.top = posY + 'px'
-
-
-
     //placer balle poseX et posY
 },
     time
@@ -46,10 +47,11 @@ let start = setInterval(function () {
 
 /************GESTION BARRE************/
 
+
+
+
+
 /************GESTION BRIQUE************/
-
-
-
 
 
 let brickRowCount = 3;
@@ -109,7 +111,7 @@ function drawBricks() {
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawBricks();
-    collisionDetection();
+    setInterval()
 }
 
 
