@@ -8,11 +8,11 @@ body {
 
 
 #game {
-    width: 400px;
-    height: 300px;
-    margin: 20px;
-    border: thin solid  black;
-    position: relative;
+    background: #eee; 
+    display: block; 
+    margin: 0 auto;
+    width: 60%;
+    height: 40%;
 }
 
 #ball {
@@ -23,9 +23,3 @@ body {
     background-color: red;
 }
 
-#racket {
-    width : 10%;
-    height: 1%;
-    background-color: brown;
-
-}

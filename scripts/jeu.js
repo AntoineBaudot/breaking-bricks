@@ -1,39 +1,64 @@
+const canvas = document.querySelector('#game')
+let ctx = canvas.getContext("2d")
+let ball = document.querySelector('#ball')
+let paddle = document.querySelector('#paddle')
+let x = game.width / 2
+let y = game.height - 40
+let paddleHeight = 5
+let paddleWidth = 50
+let paddleX = (game.width - paddleWidth) / 2
+let rightPressed = false
+let leftPressed = false;
 
 
 
-/************GESTION BALLE************/
+/**********GESTION PADDLE**********/
+document.addEventListener("keydown", keyDownHandler, false);
+document.addEventListener("keyup", keyUpHandler, false);
 
-const game = document.querySelector('#game')
-const ball = document.querySelector('#ball')
-let posXMax = 400,
-    posYMax = 300,
-    posX = Math.floor(Math.random() * posXMax / 10) * 10,
-    posY = Math.floor(Math.random() * posYMax / 10) * 10,
-    dirX = 1, //mettre à -1 pour aller vers la gauche 
-    dirY = -1, //mettre à 1 pour aller vers le bas
-    time = 40,
-    step = 10
-
-let start = setInterval(function () {
-
-    posX += dirX * step                //On ajoute dirX*step à posX
-    posY += dirY * step               //idem pour posY              
-    if (posX >= posXMax - 10 || posX <= 0) {//if (posX>= posXMax || posX<=0)
-        dirX = -dirX//on inverser dirX
-
-    } if (posY >= posYMax - 10 || posY <= 0) {//if (posY>=posYMAX || posY <=0)
-        dirY = -dirY//on inverser dirX
+function keyDownHandler(e) {
+    if (e.key == "Right" || e.key == "ArrowRight") {
+        rightPressed = true;
     }
-    ball.style.left = posX + 'px'//placer balle poseX et posY
-    ball.style.top = posY + 'px'
+    else if (e.key == "Left" || e.key == "ArrowLeft") {
+        leftPressed = true;
+    }
+}
+
+function keyUpHandler(e) {
+    if (e.key == "Right" || e.key == "ArrowRight") {
+        rightPressed = false;
+    }
+    else if (e.key == "Left" || e.key == "ArrowLeft") {
+        leftPressed = false;
+    }
+}
+
+function drawPaddle() {
+    ctx.beginPath();
+    ctx.rect(paddleX, canvas.height - paddleHeight * 2, paddleWidth, paddleHeight);
+    ctx.fillstyle = "#0095DD";
+    ctx.fill()
+    ctx.closePath();
+}
+
+function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawPaddle();
+
+    if (rightPressed && paddleX < canvas.width - paddleWidth) {
+        paddleX += 5;
+    }
+    else if (leftPressed && paddleX > 0) {
+        paddleX -= 5;
+    }
+
+
+}
+
+setInterval(draw, 10);
+
+/**********GESTION BALLe**********/
 
 
 
-    //placer balle poseX et posY
-},
-    time
-)
-
-/************GESTION BARRE************/
-
-/************GESTION BRIQUE************/
