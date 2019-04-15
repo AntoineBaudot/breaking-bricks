@@ -1,0 +1,31 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Roboto", "Arial", sans-serif;
+    font-size: 16px;
+    color: #444;
+}
+
+
+#game {
+    width: 400px;
+    height: 300px;
+    margin: 20px;
+    border: thin solid  black;
+    position: relative;
+}
+
+#ball {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    position: absolute;
+    background-color: red;
+}
+
+#racket {
+    width : 10%;
+    height: 1%;
+    background-color: brown;
+
+}
