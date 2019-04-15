@@ -2,11 +2,12 @@
 
 
 /************GESTION BALLE************/
-
+let canvas = document.getElementById("myCanvas");
+let ctx = canvas.getContext("2d");
 const game = document.querySelector('#game')
 const ball = document.querySelector('#ball')
-let posXMax = 800,
-    posYMax = 600,
+let posXMax = document.getElementById('game').offsetWidth,
+    posYMax = document.getElementById('game').offsetHeight,
     posX = Math.floor(Math.random() * posXMax / 10) * 10,
     posY = Math.floor(Math.random() * posYMax / 10) * 10,
     dirX = 1, //mettre à -1 pour aller vers la gauche
@@ -47,8 +48,7 @@ let start = setInterval(function () {
 
 /************GESTION BRIQUE************/
 
-let canvas = document.getElementById("myCanvas");
-let ctx = canvas.getContext("2d");
+
 
 
 
@@ -102,10 +102,7 @@ function drawBricks() {
             ctx.fill();
             ctx.closePath();
           }
-           if(bricks[c][r].status == 0){
-            c=0
-            r=0
-           }
+
         }
     }
 }
