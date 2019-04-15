@@ -174,11 +174,7 @@ function draw() {
         if (x > paddleX && x < paddleX + paddleWidth) {
             dy = -dy;
         }
-        else {
-            alert("GAME OVER");
-            document.location.reload();
-            clearInterval(interval); // Needed for Chrome to end game
-        }
+
     }
 
     if (rightPressed && paddleX < canvas.width - paddleWidth) {
