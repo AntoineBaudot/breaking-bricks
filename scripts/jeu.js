@@ -1,18 +1,17 @@
 const canvas = document.querySelector('#myCanvas')
 let ctx = canvas.getContext("2d")
-let ball = document.querySelector('#ball')
+
+
+
+
+
+/**********GESTION PADDLE**********/
 let paddle = document.querySelector('#paddle')
-let x = canvas.width / 2
-let y = canvas.height - 40
 let paddleHeight = 5
 let paddleWidth = 50
 let paddleX = (canvas.width - paddleWidth) / 2
 let rightPressed = false
 let leftPressed = false;
-
-
-
-/**********GESTION PADDLE**********/
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
 
