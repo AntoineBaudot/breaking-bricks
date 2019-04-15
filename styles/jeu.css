@@ -6,13 +6,16 @@ body {
     color: #444;
 }
 
-
 #game {
+    width: 60%;
+    height: 40%;
+}
+#myCanvas {
     background: #eee; 
     display: block; 
     margin: 0 auto;
-    width: 60%;
-    height: 40%;
+    width: 100%;
+    height: 100%;
 }
 
 #ball {

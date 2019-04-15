@@ -1,12 +1,12 @@
-const canvas = document.querySelector('#game')
+const canvas = document.querySelector('#myCanvas')
 let ctx = canvas.getContext("2d")
 let ball = document.querySelector('#ball')
 let paddle = document.querySelector('#paddle')
-let x = game.width / 2
-let y = game.height - 40
+let x = canvas.width / 2
+let y = canvas.height - 40
 let paddleHeight = 5
 let paddleWidth = 50
-let paddleX = (game.width - paddleWidth) / 2
+let paddleX = (canvas.width - paddleWidth) / 2
 let rightPressed = false
 let leftPressed = false;
 
