@@ -1,9 +1,74 @@
-body {
-    margin: 0;
-    padding: 0;
-    font-family: "Roboto", "Arial", sans-serif;
-    font-size: 16px;
-    color: #444;
+@font-face {
+  font-family: "triforce";
+  src:url("../font/Triforce.ttf");
+}
+body{
+  margin:0;
+  padding:0;
+  height: 100vh;
+  width: 100vw;
+  background-image: url("../images/zelda1.jpg");
 }
 
-canvas { background: #eee; }
+header {
+  width: 100%;
+  text-align: center;
+}
+
+header img{
+  display: block;
+  margin: 0 auto;
+  width: 250px;
+
+}
+
+main{
+  height: 100vh;
+  width: 100vw;
+    background-color: rgba(0, 0, 0, 0.500);
+}
+
+h2{
+  color: white;
+  margin-left: 90px;
+  margin-top: 140px;
+  font-family: "triforce";
+  letter-spacing: 1px;
+  font-size: 50px;
+  font-weight: lighter;
+  line-height: 65px;
+}
+
+button{
+  color: white;
+  height: 70px;
+  width: 400px;
+  margin-left: 180px;
+  font-size: 35px;
+  border-radius: 17px;
+  background-color: #893a3a;
+  border: #893a3a;
+  box-shadow: 0px 2px 2px 0px black;
+  font-weight: lighter;
+}
+
+.play img{
+  height: 40px;
+  padding-right: 10px;
+  margin-top: 10px;
+}
+
+.play a{
+  font-size:40px;
+  color: white;
+  text-decoration: none;
+}
+
+.play{
+  margin-left: 250px;
+  margin-top: 10px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+
+}
