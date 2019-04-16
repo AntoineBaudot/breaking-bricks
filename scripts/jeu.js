@@ -8,9 +8,7 @@ let duree = 10
 
 
 /************GESTION BALLE************/
-function balle(){
 
-}
 let ballRadius = 10;
 let x = canvas.width / 2;
 let y = canvas.height - 30;
@@ -22,8 +20,8 @@ imageWidth = 1;
 imageHeight=1;
 ctx.fill();
 
-let padding = new Image();
-padding.src = "styles/images/Boomerang1.png";
+let paddle = new Image();
+paddle.src = "styles/images/Boomerang1.png";
 
 
 function drawBall() {
@@ -79,10 +77,12 @@ let start = setInterval(function () {
 /************GESTION BRIQUE************/
 
 
+let image_bricks = new Image();
+image_bricks.src = "styles/images/vase2_opt.png";
 let brickRowCount = 3;
-let brickColumnCount = 8;
-let brickWidth = 75;
-let brickHeight = 20;
+let brickColumnCount = 17;
+let brickWidth = 25;
+let brickHeight = 30;
 let brickPadding = 20;
 let brickOffsetTop = 30;
 let brickOffsetLeft = 30;
@@ -122,7 +122,7 @@ function drawBricks() {
                 bricks[c][r].x = brickX;
                 bricks[c][r].y = brickY;
                 ctx.beginPath();
-                ctx.rect(brickX, brickY, brickWidth, brickHeight);
+                ctx.drawImage(image_bricks, brickX, brickY, brickWidth, brickHeight);
                 ctx.fillStyle = "#44C34B";
                 ctx.fill();
                 ctx.closePath();
