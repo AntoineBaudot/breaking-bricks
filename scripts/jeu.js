@@ -2,11 +2,15 @@ const canvas = document.querySelector("#myCanvas");
 let ctx = canvas.getContext("2d");
 const game = document.querySelector('#game')
 let score = 0
-let coeur = 0;
+let coeur = 0
+let cpt = 0
+let duree = 10
 
 
 /************GESTION BALLE************/
+function balle() {
 
+}
 let ballRadius = 10;
 let x = canvas.width / 2;
 let y = canvas.height - 30;
@@ -19,17 +23,17 @@ imageHeight = 1;
 
 ctx.fill();
 
+let padding = new Image();
+padding.src = "styles/images/Boomerang1.png";
+
+
 function drawBall() {
-    ctx.save();
     ctx.beginPath();
-    ctx.drawImage(image, x, y, 20, 20);
-    ctx.translate(image.x, image.y);
-    ctx.rotate(90);
-    ctx.translate(-7, -10);
+    ctx.drawImage(image, x, y, 40, 40);
     ctx.fillStyle = "#0095DD";
     ctx.fill();
     ctx.closePath();
-    ctx.restore();
+
 }
 
 /*const ball = document.querySelector('#ball')
@@ -165,6 +169,9 @@ function keyUpHandler(e) {
     }
 }
 
+
+
+//******COLLISION****//
 function collisionDetection() {
     for (var c = 0; c < brickColumnCount; c++) {
         for (var r = 0; r < brickRowCount; r++) {
@@ -182,14 +189,25 @@ function collisionDetection() {
     }
 }
 
+
+
 function drawPaddle() {
     ctx.beginPath();
-    ctx.rect(paddleX, canvas.height - paddleHeight * 2, paddleWidth, paddleHeight, paddleBottom);
+    ctx.drawImage(padding, paddleX, canvas.height - paddleHeight * 2, 100, 100);
     ctx.fillstyle = "#0095DD";
-    ctx.fill();
+    ctx.fill()
     ctx.closePath();
+
 }
 
+function drawScore() {
+    ctx.font = "16px Arial";
+    ctx.fillStyle = "#0095DD";
+    ctx.fillText("Score: " + score, 8, 20);
+    let img = document.getElementById("image");
+    let img2 = document.getElementById("image1");
+    let img3 = document.getElementById("image2");
+}
 
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -201,8 +219,23 @@ function draw() {
     if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
         dx = -dx;
     }
-    if (y + dy > canvas.height) {
+    if (y + dy > canvas.height && coeur == 0) {
         dy = -dy;
+        score--;
+        document.getElementById("image").style.visibility = "hidden";
+        coeur++;
+    }
+    else if (y + dy > canvas.height && coeur == 1) {
+        dy = -dy;
+        score--;
+        document.getElementById("image1").style.visibility = "hidden";
+        coeur++;
+    }
+    else if (y + dy > canvas.height && coeur == 2) {
+        dy = -dy;
+        score--;
+        document.getElementById("image2").style.visibility = "hidden";
+        alert("GAME OVER");
     }
     if (y + dy < ballRadius) {
         dy = -dy;
@@ -212,17 +245,6 @@ function draw() {
         if (x > paddleX && x < paddleX + paddleWidth) {
             dy = -dy;
         }
-
-
-
-
-        /*
-                else {
-                    alert("GAME OVER");
-                    window.location.reload();
-                    clearInterval(); // Needed for Chrome to end game
-        
-                */
     }
 
     if (rightPressed && paddleX < canvas.width - paddleWidth) {
@@ -234,18 +256,6 @@ function draw() {
 
     x += dx;
     y += dy;
-}
-
-
-//******COLLISION****//
-
-function drawScore() {
-    ctx.font = "16px Arial";
-    ctx.fillStyle = "#0095DD";
-    ctx.fillText("Score: " + score, 8, 20);
-    let img = document.getElementById("image");
-    let img2 = document.getElementById("image1");
-    let img3 = document.getElementById("image2");
 }
 
 setInterval(draw, 10);
