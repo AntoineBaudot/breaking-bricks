@@ -12,12 +12,13 @@ let duree = 10
 let ballRadius = 10;
 let x = canvas.width / 2;
 let y = canvas.height - 30;
-let dx = 10;
-let dy = -10;
+let dx = 1;
+let dy = -1;
 let image = new Image();
-image.src = "styles/images/Boomerang1.png";
+image.src = "styles/images/boomerang2.png";
 imageWidth = 1;
-imageHeight=1;
+imageHeight = 1;
+
 ctx.fill();
 
 let paddle = new Image();
@@ -140,8 +141,8 @@ function drawBricks() {
 
 /**********GESTION PADDLE**********/
 let paddle = document.querySelector('#paddle')
-let paddleHeight = 5
-let paddleWidth = 50
+let paddleWidth = 75;
+let paddleHeight = 20;
 let paddleBottom = 10
 let paddleX = (canvas.width - paddleWidth) / 2
 let rightPressed = false
@@ -171,15 +172,15 @@ function keyUpHandler(e) {
 
 //******COLLISION****//
 function collisionDetection() {
-    for(var c=0; c<brickColumnCount; c++) {
-        for(var r=0; r<brickRowCount; r++) {
+    for (var c = 0; c < brickColumnCount; c++) {
+        for (var r = 0; r < brickRowCount; r++) {
             var b = bricks[c][r];
-            if(b.status == 1 ){
-              if(x > b.x && x < b.x+brickWidth && y > b.y && y < b.y+brickHeight) {
-                dy = -dy;
-                b.status = 0;
-                 score++;
-            }
+            if (b.status == 1) {
+                if (x > b.x && x < b.x + brickWidth && y > b.y && y < b.y + brickHeight) {
+                    dy = -dy;
+                    b.status = 0;
+                    score++;
+                }
             }
 
             // calculations
@@ -198,21 +199,15 @@ function drawPaddle() {
 
 }
 
-function compteur(){
-
-
-}
-
-
-
 function drawScore() {
     ctx.font = "16px Arial";
     ctx.fillStyle = "#0095DD";
-    ctx.fillText("Score: "+score, 8, 20);
-   let img = document.getElementById("image");
-   let img2 = document.getElementById("image1");
-   let img3 = document.getElementById("image2");
+    ctx.fillText("Score: " + score, 8, 20);
+    let img = document.getElementById("image");
+    let img2 = document.getElementById("image1");
+    let img3 = document.getElementById("image2");
 }
+
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawBall();
@@ -223,23 +218,23 @@ function draw() {
     if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
         dx = -dx;
     }
-    if(y + dy > canvas.height && coeur == 0) {
+    if (y + dy > canvas.height && coeur == 0) {
         dy = -dy;
         score--;
         document.getElementById("image").style.visibility = "hidden";
         coeur++;
     }
-    else if(y + dy > canvas.height && coeur==1) {
+    else if (y + dy > canvas.height && coeur == 1) {
         dy = -dy;
         score--;
         document.getElementById("image1").style.visibility = "hidden";
         coeur++;
     }
-    else if(y + dy > canvas.height && coeur==2) {
+    else if (y + dy > canvas.height && coeur == 2) {
         dy = -dy;
         score--;
         document.getElementById("image2").style.visibility = "hidden";
-       alert("GAME OVER");
+        alert("GAME OVER");
     }
     if (y + dy < ballRadius) {
         dy = -dy;
