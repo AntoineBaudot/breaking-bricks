@@ -1,21 +1,37 @@
 const canvas = document.querySelector("#myCanvas");
 let ctx = canvas.getContext("2d");
 const game = document.querySelector('#game')
-let score = 0;
+let score = 0
+let coeur = 0;
+
 
 /************GESTION BALLE************/
+
 let ballRadius = 10;
 let x = canvas.width / 2;
 let y = canvas.height - 30;
 let dx = 10;
 let dy = -10;
+let image = new Image();
+image.src = "styles/images/boomerang.png";
+imageWidth = 1;
+imageHeight=1;
+
+ctx.fill();
+
 function drawBall() {
+    ctx.save();
     ctx.beginPath();
-    ctx.arc(x, y, ballRadius, 0, Math.PI * 2);
+    ctx.drawImage(image, x, y, 40, 40);
+    ctx.translate(image.x,image.y);
+    ctx.rotate(90);
+    ctx.translate(-7,-10);
     ctx.fillStyle = "#0095DD";
     ctx.fill();
     ctx.closePath();
+    ctx.restore();
 }
+
 /*const ball = document.querySelector('#ball')
 let posXMax = document.getElementById('game').offsetWidth,
     posYMax = document.getElementById('game').offsetHeight,
@@ -169,7 +185,7 @@ function drawPaddle() {
     ctx.beginPath();
     ctx.rect(paddleX, canvas.height - paddleHeight * 2, paddleWidth, paddleHeight, paddleBottom);
     ctx.fillstyle = "#0095DD";
-    ctx.fill()
+    ctx.fill();
     ctx.closePath();
 }
 
@@ -226,46 +242,8 @@ function drawScore() {
     ctx.fillStyle = "#0095DD";
     ctx.fillText("Score: "+score, 8, 20);
    let img = document.getElementById("image");
-}
-function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawBall();
-    drawPaddle();
-    drawBricks();
-    collisionDetection();
-    drawScore();
-    if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
-        dx = -dx;
-    }
-    if(y + dy > canvas.height) {
-        dy = -dy;
-        score--;
-        document.getElementById("image").style.visibility = "hidden";
-
-    }
-    if (y + dy < ballRadius) {
-        dy = -dy;
-    }
-
-    else if (y + dy > canvas.height - ballRadius) {
-        if (x > paddleX && x < paddleX + paddleWidth) {
-            dy = -dy;
-        }
-/*        else {
-            alert("GAME OVER");
-            window.location.reload();
-            clearInterval(); // Needed for Chrome to end game        */
-    }
-
-    if (rightPressed && paddleX < canvas.width - paddleWidth) {
-        paddleX += 7;
-    }
-    else if (leftPressed && paddleX > 0) {
-        paddleX -= 7;
-    }
-
-    x += dx;
-    y += dy;
+   let img2 = document.getElementById("image1");
+   let img3 = document.getElementById("image2");
 }
 
 setInterval(draw, 10);
