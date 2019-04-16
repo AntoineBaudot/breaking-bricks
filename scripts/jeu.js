@@ -10,10 +10,10 @@ let coeur = 0;
 let ballRadius = 10;
 let x = canvas.width / 2;
 let y = canvas.height - 30;
-let dx = 10;
-let dy = -10;
+let dx = 1;
+let dy = -1;
 let image = new Image();
-image.src = "styles/images/boomerang.png";
+image.src = "styles/images/boomerang2.png";
 imageWidth = 1;
 imageHeight = 1;
 
@@ -22,7 +22,7 @@ ctx.fill();
 function drawBall() {
     ctx.save();
     ctx.beginPath();
-    ctx.drawImage(image, x, y, 40, 40);
+    ctx.drawImage(image, x, y, 20, 20);
     ctx.translate(image.x, image.y);
     ctx.rotate(90);
     ctx.translate(-7, -10);
@@ -75,11 +75,12 @@ let start = setInterval(function () {
 
 /************GESTION BRIQUE************/
 
-
+let image_bricks = new Image();
+image_bricks.src = "styles/images/vase2_opt.png";
 let brickRowCount = 3;
-let brickColumnCount = 8;
-let brickWidth = 75;
-let brickHeight = 20;
+let brickColumnCount = 17;
+let brickWidth = 25;
+let brickHeight = 30;
 let brickPadding = 20;
 let brickOffsetTop = 30;
 let brickOffsetLeft = 30;
@@ -119,7 +120,7 @@ function drawBricks() {
                 bricks[c][r].x = brickX;
                 bricks[c][r].y = brickY;
                 ctx.beginPath();
-                ctx.rect(brickX, brickY, brickWidth, brickHeight);
+                ctx.drawImage(image_bricks, brickX, brickY, brickWidth, brickHeight);
                 ctx.fillStyle = "#44C34B";
                 ctx.fill();
                 ctx.closePath();
@@ -137,8 +138,8 @@ function drawBricks() {
 
 /**********GESTION PADDLE**********/
 let paddle = document.querySelector('#paddle')
-let paddleHeight = 5
-let paddleWidth = 50
+let paddleWidth = 75;
+let paddleHeight = 20;
 let paddleBottom = 10
 let paddleX = (canvas.width - paddleWidth) / 2
 let rightPressed = false
@@ -188,6 +189,7 @@ function drawPaddle() {
     ctx.fill();
     ctx.closePath();
 }
+
 
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
