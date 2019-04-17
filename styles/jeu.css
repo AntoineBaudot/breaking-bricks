@@ -1,3 +1,7 @@
+@font-face {
+  font-family: "triforce";
+  src:url("../font/Triforce.ttf");
+}
 body {
   margin: 0;
   padding: 0;
@@ -13,6 +17,7 @@ body {
   background-image: url('../images/zelda_bcg.png');
   background-repeat : no-repeat;
   background-size: cover;
+  position: relative;
 
 }
 
@@ -22,21 +27,44 @@ width: 100%;
 height: 100%;
 display:block;;
 
-
-
+}
+.titre {
+  font-family: 'triforce';
+  font-size: 60px;
+  color: white;
+  top:10%;
+  text-align: center;
 
 }
-
+.text {
+  top: 10%;
+  display: none;
+  width: 50%;
+  margin: 0 25%;
+}
+.text_gameOver {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 #image3{
 visibility:hidden;
 }
+.link {
+  font-size:40px;
+  color: white;
+  text-decoration: none;
+  font-family: 'triforce';
+  top: 32%;
 
+  
+}
 #ball {
   width: 20px;
   height: 20px;
   border-radius: 50%;
   position: absolute;
-  background-image:url('../styles/images/flamme.png');
+  background:url('../styles/images/flamme.png');
   background-repeat: no-repeat;
   background-size: cover;
 }
