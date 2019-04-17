@@ -2,27 +2,33 @@ const canvas = document.querySelector("#myCanvas");
 let ctx = canvas.getContext("2d");
 const game = document.querySelector('#game')
 let score = 0
-let coeur = 0
-let cpt = 0
-let duree = 10
+let coeur=  0
+/*
+let detruit=[]
+let timer = new Date()
+let origin = timer.getTime();
+let now = timer.getTime();
+
 
 
 /************GESTION BALLE************/
 
+
 let ballRadius = 10;
 let x = canvas.width / 2;
 let y = canvas.height - 30;
-let dx = 1;
-let dy = -1;
+let dx = 3;
+let dy = -3;
 let image = new Image();
 image.src = "styles/images/boomerang2.png";
 imageWidth = 1;
 imageHeight = 1;
 
-ctx.fill();
 
-let paddle = new Image();
-paddle.src = "styles/images/Boomerang1.png";
+
+
+let padding = new Image();
+padding.src = "styles/images/Boomerang1.png";
 
 
 function drawBall() {
@@ -34,49 +40,10 @@ function drawBall() {
 
 }
 
-/*const ball = document.querySelector('#ball')
-let posXMax = document.getElementById('game').offsetWidth,
-    posYMax = document.getElementById('game').offsetHeight,
-    posX = Math.floor(Math.random() * posXMax / 10) * 10,
-    posY = Math.floor(Math.random() * posYMax / 10) * 10,
-    dirX = 1, //mettre à -1 pour aller vers la gauche
-    dirY = -1, //mettre à 1 pour aller vers le bas
-    time = 10,
-    step = 10
-
-let start = setInterval(function () {
-    posX += dirX * step                //On ajoute dirX*step à posX
-    posY += dirY * step               //idem pour posY
-    if (posX >= posXMax - 10 || posX <= 0) {//if (posX>= posXMax || posX<=0)
-        dirX = -dirX//on inverser dirX
-
-    } if (posY >= posYMax - 10 || posY <= 0) {//if (posY>=posYMAX || posY <=0)
-        dirY = -dirY//on inverser dirX
-    }
-
-    //Balle qui touche les briques
-    for (let c = 0; c < brickColumnCount; c++) {
-        for (let r = 0; r < brickRowCount; r++) {
-            let b = bricks[c][r];
-            if (posX > b.x && posX < b.x + brickWidth && posY > b.y && posY < b.y + brickHeight) {
-                dirY = -dirY;
-                b.status = 0;
-            }
-        }
-    }
-
-
-    ball.style.left = posX + 'px'//placer balle poseX et posY
-    ball.style.top = posY + 'px'
-    //placer balle poseX et posY
-},
-    time
-)*/
 
 
 
 /************GESTION BRIQUE************/
-
 
 let image_bricks = new Image();
 image_bricks.src = "styles/images/vase2_opt.png";
@@ -89,10 +56,10 @@ let brickOffsetTop = 30;
 let brickOffsetLeft = 30;
 
 let bricks = [];
-for (let c = 0; c < brickColumnCount; c++) {
-    bricks[c] = [];
+for (let c = 0; c < brickColumnCount; c++) {          //tableau a 2 dimension qui contient la colonne des brique (c)
+    bricks[c] = [];                                  // qui celui-ci contiendra la ligne des briques(r)
     for (let r = 0; r < brickRowCount; r++) {
-        bricks[c][r] = { x: 0, y: 0, status: 1 };
+        bricks[c][r] = { x: 0, y: 0, status: 1 };  //
     }
 }
 
@@ -172,21 +139,34 @@ function keyUpHandler(e) {
 
 //******COLLISION****//
 function collisionDetection() {
-    for (var c = 0; c < brickColumnCount; c++) {
-        for (var r = 0; r < brickRowCount; r++) {
-            var b = bricks[c][r];
+    for (let c = 0; c < brickColumnCount; c++) {
+        for (let r = 0; r < brickRowCount; r++) {
+            let b = bricks[c][r];
             if (b.status == 1) {
                 if (x > b.x && x < b.x + brickWidth && y > b.y && y < b.y + brickHeight) {
                     dy = -dy;
                     b.status = 0;
                     score++;
+                    if(score>=3){
+                      dx=3.5;
+                      dy=-3.5;
+                    }
+                    if(score>=6){
+                      dx=5;
+                      dy=-5;
+                    }
+/*
+                    detruit.push(b)
+                    console.log(detruit);
+                    */
+                  }
                 }
             }
 
-            // calculations
+
         }
     }
-}
+
 
 
 
@@ -208,11 +188,42 @@ function drawScore() {
     let img3 = document.getElementById("image2");
 }
 
+
+/*
+function respawn(tab,tab_origin){
+     let res = tab[0]
+     for (let i=0 ; i<tab_origin.length;i++){
+       if(res.x==tab_origin[i].x && res.y==tab_origin[i].y){
+         tab_origin[i].status=1
+         tab=tab.slice(1)
+         return [tab_origin,tab]        // Récupere le tableau d'origine avec le nouveau
+                                        //vase et le tableau détruit sans la 1er valeur
+       }
+     }
+     return [tab_origin,tab]
+}
+
+*/
+
+
+
 function draw() {
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawBall();
-    drawPaddle();
     drawBricks();
+    drawPaddle();
+    /*
+    if(detruit.length>=1){
+      let timer = new Date()
+      let now = timer.getTime();
+      if(now-origin>1000){
+      let recup = respawn(detruit,bricks);
+      bricks=recup[0]
+      detruit=recup[1]
+      }
+    }
+*/
     collisionDetection();
     drawScore();
     if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
@@ -229,12 +240,13 @@ function draw() {
         score--;
         document.getElementById("image1").style.visibility = "hidden";
         coeur++;
+
     }
     else if (y + dy > canvas.height && coeur == 2) {
         dy = -dy;
         score--;
         document.getElementById("image2").style.visibility = "hidden";
-        alert("GAME OVER");
+        //alert("GAME OVER");
     }
     if (y + dy < ballRadius) {
         dy = -dy;
@@ -255,6 +267,9 @@ function draw() {
 
     x += dx;
     y += dy;
+/*
+    console.log(now);
+    */
 }
 
-setInterval(draw, 10);
+setInterval(draw,5)
