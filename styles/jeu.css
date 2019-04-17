@@ -10,7 +10,7 @@ body {
 #game {
   width: 60%;
   height: 40%;
-  background-image: url('http://mikesrpgcenter.com/zelda3/maps/lightworld_small.gif');
+  background-image: url('../images/zelda_bcg.png');
   background-repeat : no-repeat;
   background-size: cover;
 

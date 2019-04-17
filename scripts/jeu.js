@@ -2,7 +2,7 @@ const canvas = document.querySelector("#myCanvas");
 let ctx = canvas.getContext("2d");
 const game = document.querySelector('#game')
 let score = 0
-let coeur=  0
+let coeur = 0
 /*
 let detruit=[]
 let timer = new Date()
@@ -17,8 +17,8 @@ let now = timer.getTime();
 let ballRadius = 10;
 let x = canvas.width / 2;
 let y = canvas.height - 30;
-let dx = 2;
-let dy = -2;
+let dx = 1;
+let dy = -1;
 let image = new Image();
 image.src = "images/boomerang2.png";
 imageWidth = 1;
@@ -32,6 +32,50 @@ function drawBall() {
 
 
 
+let malus_x = canvas.width - 10;
+let malus_y = canvas.height - 30;
+let malus_dx = 1;
+let malus_dy = -1;
+let image_malus = new Image();
+image_malus.src = "images/flamme.png";
+image_malusWidth = 1;
+image_malusHeight = 1;
+
+function drawBallMalus() {
+    ctx.beginPath();
+    ctx.drawImage(image_malus, malus_x, malus_y, 20, 20);
+    ctx.closePath();
+}
+/*
+const ball = document.querySelector('#ball')
+let posXMax = document.getElementById('game').offsetWidth,
+    posYMax = document.getElementById('game').offsetHeight,
+    posX = Math.floor(Math.random() * posXMax / 10) * 10,
+    posY = Math.floor(Math.random() * posYMax / 10) * 10,
+    dirX = 1, //mettre à -1 pour aller vers la gauche
+    dirY = -1, //mettre à 1 pour aller vers le bas
+    time = 20,
+    step = 10
+
+let start = setInterval(function () {
+    posX += dirX * step                //On ajoute dirX*step à posX
+    posY += dirY * step               //idem pour posY
+    if (posX >= posXMax - 10 || posX <= 0) {//if (posX>= posXMax || posX<=0)
+        dirX = -dirX//on inverser dirX
+
+    } if (posY >= posYMax - 10 || posY <= 0) {//if (posY>=posYMAX || posY <=0)
+        dirY = -dirY//on inverser dirX
+    }
+
+
+
+    ball.style.left = posX + 'px'//placer balle poseX et posY
+    ball.style.top = posY + 'px'
+    //placer balle poseX et posY
+},
+    time
+)
+*/
 
 
 /************GESTION BRIQUE************/
@@ -167,25 +211,27 @@ function collisionDetection() {
                     dy = -dy;
                     b.status = 0;
                     score++;
-                    if(score>=10){
-                      dx=2.5;
-                      dy=-2.5;
+                    if (score >= 10) {
+                        dx = 2;
+                        dy = -2;
                     }
-                    if(score>=30){
-                      dx=3;
-                      dy=-3;
+                    if (score >= 15) {
+                        dx = 2.5;
+                        dy = -2.5;
                     }
-/*
-                    detruit.push(b)
-                    console.log(detruit);
-                    */
-                  }
+
+
+                    /*
+                                        detruit.push(b)
+                                        console.log(detruit);
+                                        */
                 }
             }
-
-
         }
+
+
     }
+}
 
 
 
@@ -233,6 +279,8 @@ function draw() {
     drawBall();
     drawBricks();
     drawPaddle();
+    drawBallMalus()
+
     /*
     if(detruit.length>=1){
       let timer = new Date()
@@ -276,24 +324,77 @@ function draw() {
         dy = -dy;
     }
 
-    else if (y + dy > canvas.height-15 - ballRadius) {
+    else if (y + dy > canvas.height - 15 - ballRadius) {
         if (x > paddleX && x < paddleX + paddleWidth) {
             dy = -dy;
         }
     }
 
     if (rightPressed && paddleX < canvas.width - paddleWidth) {
-        paddleX += 7;
+        paddleX += 5;
     }
     else if (leftPressed && paddleX > 0) {
-        paddleX -= 7;
+        paddleX -= 5;
     }
 
     x += dx;
     y += dy;
-/*
-    console.log(now);
-    */
+
+    /*test*/
+    if (malus_x + malus_dx > canvas.width - ballRadius || malus_x + dx < ballRadius) {
+        malus_dx = -malus_dx;
+    }
+    if (malus_y + malus_dy > canvas.height && coeur == 0) {
+        malus_dy = -malus_dy;
+        score--;
+        document.getElementById("image").style.visibility = "hidden";
+        coeur++;
+    }
+    else if (malus_y + malus_dy > canvas.height && coeur == 1) {
+        malus_dy = -malus_dy;
+        score--;
+        document.getElementById("image1").style.visibility = "hidden";
+        coeur++;
+
+    }
+    else if (malus_y + malus_dy > canvas.height && coeur == 2) {
+        malus_dy = -malus_dy;
+        score--;
+        document.getElementById("image2").style.visibility = "hidden";
+
+    }
+
+
+    if (malus_y + malus_dy < ballRadius) {
+        malus_dy = -malus_dy;
+    }
+
+    else if (malus_y + malus_dy > canvas.height - 15 - ballRadius) {
+        if (malus_x > paddleX && malus_x < paddleX + paddleWidth) {
+            alert("GAME OVER");
+            window.location.reload()
+        }
+    }
+
+
+
+    malus_x += malus_dx;
+    malus_y += malus_dy;
+    /*
+    if (malus_x + malus_dx > canvas.width - ballRadius || malus_x + malus_dx < ballRadius) {
+        malus_dx = -malus_dx;
+    }
+
+    if (malus_y + malus_dy < ballRadius) {
+        malus_dy = -malus_dy;
+    }
+    malus_x += malus_dx;
+    malus_y += malus_dy;
+    /*
+        console.log(now);
+        */
 }
 
-setInterval(draw,5)
+
+
+setInterval(draw, 5)
