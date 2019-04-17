@@ -2,7 +2,7 @@ const canvas = document.querySelector("#myCanvas");
 let ctx = canvas.getContext("2d");
 const game = document.querySelector('#game')
 let score = 0
-let coeur=  0
+let coeur = 0
 /*
 let detruit=[]
 let timer = new Date()
@@ -23,11 +23,6 @@ let image = new Image();
 image.src = "styles/images/boomerang2.png";
 imageWidth = 1;
 imageHeight = 1;
-
-
-
-
-
 
 
 function drawBall() {
@@ -201,25 +196,25 @@ function collisionDetection() {
                     dy = -dy;
                     b.status = 0;
                     score++;
-                    if(score>=3){
-                      dx=3.5;
-                      dy=-3.5;
+                    if (score >= 3) {
+                        dx = 3.5;
+                        dy = -3.5;
                     }
-                    if(score>=6){
-                      dx=5;
-                      dy=-5;
+                    if (score >= 6) {
+                        dx = 5;
+                        dy = -5;
                     }
-/*
-                    detruit.push(b)
-                    console.log(detruit);
-                    */
-                  }
+                    /*
+                                        detruit.push(b)
+                                        console.log(detruit);
+                                        */
                 }
             }
-
-
         }
+
+
     }
+}
 
 
 
@@ -324,9 +319,9 @@ function draw() {
 
     x += dx;
     y += dy;
-/*
-    console.log(now);
-    */
+    /*
+        console.log(now);
+        */
 }
 
-setInterval(draw,5)
+setInterval(draw, 5)
