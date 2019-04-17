@@ -17,18 +17,12 @@ let now = timer.getTime();
 let ballRadius = 10;
 let x = canvas.width / 2;
 let y = canvas.height - 30;
-let dx = 3;
-let dy = -3;
+let dx = 2;
+let dy = -2;
 let image = new Image();
 image.src = "styles/images/boomerang2.png";
 imageWidth = 1;
 imageHeight = 1;
-
-
-
-
-
-
 
 function drawBall() {
     ctx.beginPath();
@@ -201,13 +195,13 @@ function collisionDetection() {
                     dy = -dy;
                     b.status = 0;
                     score++;
-                    if(score>=3){
-                      dx=3.5;
-                      dy=-3.5;
+                    if(score>=10){
+                      dx=2,5;
+                      dy=-2,5;
                     }
-                    if(score>=6){
-                      dx=5;
-                      dy=-5;
+                    if(score>=30){
+                      dx=3;
+                      dy=-3;
                     }
 /*
                     detruit.push(b)
@@ -235,7 +229,7 @@ function drawPaddle() {
 
 function drawScore() {
     ctx.font = "16px Arial";
-    ctx.fillStyle = "#0095DD";
+    ctx.fillStyle = "#FFFFFF";
     ctx.fillText("Score: " + score, 80, 20);
     let img = document.getElementById("image");
     let img2 = document.getElementById("image1");
@@ -301,7 +295,7 @@ function draw() {
         dy = -dy;
         score--;
         document.getElementById("image2").style.visibility = "hidden";
-        //alert("GAME OVER");
+        alert("GAME OVER");
     }
 
 
