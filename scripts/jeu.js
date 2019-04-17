@@ -173,6 +173,7 @@ let ganonX = (canvas.width - image_ganon.width) / 6;
 */
 
 function drawGameOver() {
+
     let ganon = new Image()
     ganon.src = 'images/ganon.png'
     let text = document.querySelector('.text');
@@ -208,6 +209,7 @@ function draw() {
     collisionDetection();
     drawScore();
 
+
     if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
         dx = -dx;
     }
@@ -228,14 +230,6 @@ function draw() {
         dy = -dy;
         score--;
         coeur_img[0].style.display = 'none';
-        drawBall();
-        drawBricks();
-        drawPaddle();
-        drawBallMalus()
-        collisionDetection();
-        drawScore();
-        drawGameOver()
-
     }
     if (y + dy < ballRadius) {
         dy = -dy;
@@ -264,6 +258,7 @@ function draw() {
 
     if (malus_y + malus_dy < ballRadius) {
         malus_dy = -malus_dy;
+
     }
     else if (malus_y + malus_dy > canvas.height - 15 - ballRadius) {
         if (malus_x > paddleX && malus_x < paddleX + paddleWidth) {
