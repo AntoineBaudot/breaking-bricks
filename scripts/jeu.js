@@ -3,6 +3,8 @@ let ctx = canvas.getContext("2d");
 const game = document.querySelector('#game')
 let score = 0
 let coeur = 0
+const coeur_img = document.querySelectorAll('.image')
+
 
 
 
@@ -159,9 +161,40 @@ function drawScore() {
     ctx.font = "20px Triforce";
     ctx.fillStyle = "#FFFFFF";
     ctx.fillText("Score: " + score, 30, 20);
-    let img = document.getElementById("image");
-    let img2 = document.getElementById("image1");
-    let img3 = document.getElementById("image2");
+
+}
+/*
+let image_ganon = new Image();
+image_ganon.src = "images/ganon.png";
+let ganonWidth = 75;
+let ganonHeight = 26;
+let ganonBottom = 10
+let ganonX = (canvas.width - image_ganon.width) / 6;
+*/
+
+function drawGameOver() {
+    let ganon = new Image()
+    ganon.src = 'images/ganon.png'
+    let text = document.querySelector('.text');
+    text.style.display = 'block';
+    text.style.position = 'absolute';
+
+    game.style.background = 'none';
+    game.style.background = 'none';
+    for (let i = 0; i < coeur_img.length; i++) {
+        coeur_img[i].style.display = 'none';
+    }
+    ctx.beginPath();
+    ctx.fillStyle = '#A83C2A'
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.closePath();
+    ctx.beginPath();
+    ctx.drawImage(ganon, (canvas.width - ganon.width) / 2, canvas.height - ganon.height);
+    ctx.closePath();
+
+
+
+
 }
 
 
@@ -181,21 +214,28 @@ function draw() {
     if (y + dy > canvas.height && coeur == 0) {
         dy = -dy;
         score--;
-        document.getElementById("image").style.visibility = "hidden";
+
+        coeur_img[2].style.display = "none";
         coeur++;
     }
     else if (y + dy > canvas.height && coeur == 1) {
         dy = -dy;
         score--;
-        document.getElementById("image1").style.visibility = "hidden";
+        coeur_img[1].style.display = 'none';
         coeur++;
     }
     else if (y + dy > canvas.height && coeur == 2) {
         dy = -dy;
         score--;
-        document.getElementById("image2").style.visibility = "hidden";
-        alert("GAME OVER");
-        window.location.reload();
+        coeur_img[0].style.display = 'none';
+        drawBall();
+        drawBricks();
+        drawPaddle();
+        drawBallMalus()
+        collisionDetection();
+        drawScore();
+        drawGameOver()
+
     }
     if (y + dy < ballRadius) {
         dy = -dy;
@@ -228,7 +268,9 @@ function draw() {
     else if (malus_y + malus_dy > canvas.height - 15 - ballRadius) {
         if (malus_x > paddleX && malus_x < paddleX + paddleWidth) {
 
-            window.location.reload();
+            return (drawBall(), drawBricks(), drawPaddle(), drawBallMalus(), collisionDetection(), drawScore(), drawGameOver())
+
+
         }
     }
     malus_x += malus_dx;
