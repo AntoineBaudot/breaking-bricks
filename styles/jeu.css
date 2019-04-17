@@ -19,9 +19,19 @@ width: 100%;
 height: 100%;
 display:block;;
 margin: 0 auto;
-background-color: #eee;
+border: solid thin black;
 }
 
 #image3{
 visibility:hidden;
+}
+
+#ball {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  position: absolute;
+  background-image:url('../styles/images/flamme.png');
+  background-repeat: no-repeat;
+  background-size: cover;
 }

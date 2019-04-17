@@ -8,9 +8,7 @@ let duree = 10
 
 
 /************GESTION BALLE************/
-function balle() {
 
-}
 let ballRadius = 10;
 let x = canvas.width / 2;
 let y = canvas.height - 30;
@@ -23,27 +21,24 @@ imageHeight = 1;
 
 ctx.fill();
 
-let padding = new Image();
-padding.src = "styles/images/Boomerang1.png";
+
 
 
 function drawBall() {
     ctx.beginPath();
-    ctx.drawImage(image, x, y, 40, 40);
-    ctx.fillStyle = "#0095DD";
-    ctx.fill();
+    ctx.drawImage(image, x, y, 20, 20);
     ctx.closePath();
-
 }
 
-/*const ball = document.querySelector('#ball')
+
+const ball = document.querySelector('#ball')
 let posXMax = document.getElementById('game').offsetWidth,
     posYMax = document.getElementById('game').offsetHeight,
     posX = Math.floor(Math.random() * posXMax / 10) * 10,
     posY = Math.floor(Math.random() * posYMax / 10) * 10,
     dirX = 1, //mettre à -1 pour aller vers la gauche
     dirY = -1, //mettre à 1 pour aller vers le bas
-    time = 10,
+    time = 20,
     step = 10
 
 let start = setInterval(function () {
@@ -56,16 +51,6 @@ let start = setInterval(function () {
         dirY = -dirY//on inverser dirX
     }
 
-    //Balle qui touche les briques
-    for (let c = 0; c < brickColumnCount; c++) {
-        for (let r = 0; r < brickRowCount; r++) {
-            let b = bricks[c][r];
-            if (posX > b.x && posX < b.x + brickWidth && posY > b.y && posY < b.y + brickHeight) {
-                dirY = -dirY;
-                b.status = 0;
-            }
-        }
-    }
 
 
     ball.style.left = posX + 'px'//placer balle poseX et posY
@@ -73,14 +58,13 @@ let start = setInterval(function () {
     //placer balle poseX et posY
 },
     time
-)*/
+)
 
 
 
 /************GESTION BRIQUE************/
 
-let image_bricks = new Image();
-image_bricks.src = "styles/images/vase2_opt.png";
+
 let brickRowCount = 3;
 let brickColumnCount = 17;
 let brickWidth = 25;
@@ -88,6 +72,7 @@ let brickHeight = 30;
 let brickPadding = 20;
 let brickOffsetTop = 30;
 let brickOffsetLeft = 30;
+let j = 0;
 
 let bricks = [];
 for (let c = 0; c < brickColumnCount; c++) {
@@ -115,6 +100,19 @@ function keyUpHandler(e) {
 }
 
 
+let images_bricks2 = [];
+
+
+let image1 = new Image();
+image1.src = 'styles/images/vase2_opt.png';
+
+let image2 = new Image();
+image2.src = 'styles/images/vase_opt.png';
+let images_bricks1 = [image1, image2];
+
+console.log(images_bricks1)
+
+
 function drawBricks() {
     for (let c = 0; c < brickColumnCount; c++) {
         for (let r = 0; r < brickRowCount; r++) {
@@ -124,7 +122,21 @@ function drawBricks() {
                 bricks[c][r].x = brickX;
                 bricks[c][r].y = brickY;
                 ctx.beginPath();
-                ctx.drawImage(image_bricks, brickX, brickY, brickWidth, brickHeight);
+                /*while (j < 51) {
+                    let choix = Math.floor(Math.random() * 2)
+                    console.log(choix)
+                    images_bricks2 = images_bricks1[choix]
+                    j++
+
+                }*/
+
+                let choix = Math.floor(Math.random() * 1)
+                console.log(choix)
+                ctx.drawImage(images_bricks1[choix], brickX, brickY, brickWidth, brickHeight);
+
+
+
+
                 ctx.fillStyle = "#44C34B";
                 ctx.fill();
                 ctx.closePath();
@@ -141,9 +153,11 @@ function drawBricks() {
 
 
 /**********GESTION PADDLE**********/
-let paddle = document.querySelector('#paddle')
+
+let image_paddle = new Image();
+image_paddle.src = "styles/images/bouclier.png";
 let paddleWidth = 75;
-let paddleHeight = 20;
+let paddleHeight = 26;
 let paddleBottom = 10
 let paddleX = (canvas.width - paddleWidth) / 2
 let rightPressed = false
@@ -171,7 +185,7 @@ function keyUpHandler(e) {
 
 
 
-//******COLLISION****//
+//******COLLISION BALLE****//
 function collisionDetection() {
     for (var c = 0; c < brickColumnCount; c++) {
         for (var r = 0; r < brickRowCount; r++) {
@@ -193,7 +207,7 @@ function collisionDetection() {
 
 function drawPaddle() {
     ctx.beginPath();
-    ctx.drawImage(padding, paddleX, canvas.height - paddleHeight * 2, 100, 100);
+    ctx.drawImage(image_paddle, paddleX, canvas.height - paddleHeight);
     ctx.fillstyle = "#0095DD";
     ctx.fill()
     ctx.closePath();
@@ -203,7 +217,7 @@ function drawPaddle() {
 function drawScore() {
     ctx.font = "16px Arial";
     ctx.fillStyle = "#0095DD";
-    ctx.fillText("Score: " + score, 8, 20);
+    ctx.fillText("Score: " + score, 80, 20);
     let img = document.getElementById("image");
     let img2 = document.getElementById("image1");
     let img3 = document.getElementById("image2");
@@ -216,6 +230,7 @@ function draw() {
     drawBricks();
     collisionDetection();
     drawScore();
+
     if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
         dx = -dx;
     }
@@ -237,6 +252,8 @@ function draw() {
         document.getElementById("image2").style.visibility = "hidden";
         alert("GAME OVER");
     }
+
+
     if (y + dy < ballRadius) {
         dy = -dy;
     }
@@ -256,6 +273,9 @@ function draw() {
 
     x += dx;
     y += dy;
-}
 
+
+
+
+}
 setInterval(draw, 10);
