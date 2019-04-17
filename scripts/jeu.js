@@ -209,7 +209,6 @@ function draw() {
     collisionDetection();
     drawScore();
 
-
     if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
         dx = -dx;
     }
@@ -272,4 +271,3 @@ function draw() {
     malus_y += malus_dy;
 }
 setInterval(draw, 5)
-
