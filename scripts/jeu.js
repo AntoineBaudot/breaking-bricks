@@ -3,84 +3,37 @@ let ctx = canvas.getContext("2d");
 const game = document.querySelector('#game')
 let score = 0
 let coeur = 0
-let cpt = 0
-let duree = 10
+const coeur_img = document.querySelectorAll('.image')
 
 
-/************GESTION BALLE************/
-function balle() {
 
-}
+
+
+/************GESTION BOOMERANG************/
+
+
 let ballRadius = 10;
 let x = canvas.width / 2;
 let y = canvas.height - 30;
 let dx = 1;
 let dy = -1;
 let image = new Image();
-image.src = "styles/images/boomerang2.png";
+image.src = "images/boomerang2.png";
 imageWidth = 1;
 imageHeight = 1;
 
-ctx.fill();
-
-let padding = new Image();
-padding.src = "styles/images/Boomerang1.png";
-
-
 function drawBall() {
     ctx.beginPath();
-    ctx.drawImage(image, x, y, 40, 40);
-    ctx.fillStyle = "#0095DD";
-    ctx.fill();
+    ctx.drawImage(image, x, y, 20, 20);
     ctx.closePath();
-
 }
 
-/*const ball = document.querySelector('#ball')
-let posXMax = document.getElementById('game').offsetWidth,
-    posYMax = document.getElementById('game').offsetHeight,
-    posX = Math.floor(Math.random() * posXMax / 10) * 10,
-    posY = Math.floor(Math.random() * posYMax / 10) * 10,
-    dirX = 1, //mettre à -1 pour aller vers la gauche
-    dirY = -1, //mettre à 1 pour aller vers le bas
-    time = 10,
-    step = 10
-
-let start = setInterval(function () {
-    posX += dirX * step                //On ajoute dirX*step à posX
-    posY += dirY * step               //idem pour posY
-    if (posX >= posXMax - 10 || posX <= 0) {//if (posX>= posXMax || posX<=0)
-        dirX = -dirX//on inverser dirX
-
-    } if (posY >= posYMax - 10 || posY <= 0) {//if (posY>=posYMAX || posY <=0)
-        dirY = -dirY//on inverser dirX
-    }
-
-    //Balle qui touche les briques
-    for (let c = 0; c < brickColumnCount; c++) {
-        for (let r = 0; r < brickRowCount; r++) {
-            let b = bricks[c][r];
-            if (posX > b.x && posX < b.x + brickWidth && posY > b.y && posY < b.y + brickHeight) {
-                dirY = -dirY;
-                b.status = 0;
-            }
-        }
-    }
-
-
-    ball.style.left = posX + 'px'//placer balle poseX et posY
-    ball.style.top = posY + 'px'
-    //placer balle poseX et posY
-},
-    time
-)*/
 
 
 
 /************GESTION BRIQUE************/
 
-let image_bricks = new Image();
-image_bricks.src = "styles/images/vase2_opt.png";
+
 let brickRowCount = 3;
 let brickColumnCount = 17;
 let brickWidth = 25;
@@ -88,45 +41,30 @@ let brickHeight = 30;
 let brickPadding = 20;
 let brickOffsetTop = 30;
 let brickOffsetLeft = 30;
+let j = 0;
 
+/************CREATION TABLEAU BRIQUE************/
 let bricks = [];
-for (let c = 0; c < brickColumnCount; c++) {
-    bricks[c] = [];
+for (let c = 0; c < brickColumnCount; c++) {          //tableau a 2 dimension qui contient la colonne des brique (c)
+    bricks[c] = [];                                  // qui celui-ci contiendra la ligne des briques(r)
     for (let r = 0; r < brickRowCount; r++) {
-        bricks[c][r] = { x: 0, y: 0, status: 1 };
+        bricks[c][r] = { x: 0, y: 0, status: 1 };  //
     }
 }
 
-function keyDownHandler(e) {
-    if (e.keyCode == 39) {
-        rightPressed = true;
-    }
-    else if (e.keyCode == 37) {
-        leftPressed = true;
-    }
-}
-function keyUpHandler(e) {
-    if (e.keyCode == 39) {
-        rightPressed = false;
-    }
-    else if (e.keyCode == 37) {
-        leftPressed = false;
-    }
-}
-
-
+/************DRAW BRICK************/
 function drawBricks() {
     for (let c = 0; c < brickColumnCount; c++) {
         for (let r = 0; r < brickRowCount; r++) {
             if (bricks[c][r].status == 1) {
-                let brickX = (c * (brickWidth + brickPadding)) + brickOffsetLeft;
-                let brickY = (r * (brickHeight + brickPadding)) + brickOffsetTop;
+                let brickX = (c * (brickWidth + brickPadding)) + brickOffsetLeft;//position brick X
+                let brickY = (r * (brickHeight + brickPadding)) + brickOffsetTop;//position brick y
                 bricks[c][r].x = brickX;
                 bricks[c][r].y = brickY;
                 ctx.beginPath();
-                ctx.drawImage(image_bricks, brickX, brickY, brickWidth, brickHeight);
-                ctx.fillStyle = "#44C34B";
-                ctx.fill();
+                let image1 = new Image();
+                image1.src = 'images/vase2_opt.png';
+                ctx.drawImage(image1, brickX, brickY, brickWidth, brickHeight);
                 ctx.closePath();
             }
         }
@@ -134,16 +72,12 @@ function drawBricks() {
 }
 
 
-
-
-
-
-
-
 /**********GESTION PADDLE**********/
-let paddle = document.querySelector('#paddle')
+
+let image_paddle = new Image();
+image_paddle.src = "images/bouclier.png";
 let paddleWidth = 75;
-let paddleHeight = 20;
+let paddleHeight = 26;
 let paddleBottom = 10
 let paddleX = (canvas.width - paddleWidth) / 2
 let rightPressed = false
@@ -151,6 +85,9 @@ let leftPressed = false;
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
 
+
+
+/**********GESTION FLECHE**********/
 function keyDownHandler(e) {
     if (e.key == "Right" || e.key == "ArrowRight") {
         rightPressed = true;
@@ -159,7 +96,6 @@ function keyDownHandler(e) {
         leftPressed = true;
     }
 }
-
 function keyUpHandler(e) {
     if (e.key == "Right" || e.key == "ArrowRight") {
         rightPressed = false;
@@ -171,91 +107,169 @@ function keyUpHandler(e) {
 
 
 
-//******COLLISION****//
+//******COLLISION BALLE****//
 function collisionDetection() {
-    for (var c = 0; c < brickColumnCount; c++) {
-        for (var r = 0; r < brickRowCount; r++) {
-            var b = bricks[c][r];
+    for (let c = 0; c < brickColumnCount; c++) {
+        for (let r = 0; r < brickRowCount; r++) {
+            let b = bricks[c][r];
             if (b.status == 1) {
                 if (x > b.x && x < b.x + brickWidth && y > b.y && y < b.y + brickHeight) {
                     dy = -dy;
                     b.status = 0;
                     score++;
+                    if (score >= 10) {
+                        dx = 2;
+                        dy = -2;
+                    }
+                    if (score >= 15) {
+                        dx = 2.5;
+                        dy = -2.5;
+                    }
                 }
             }
-
-            // calculations
         }
     }
+}
+/************GESTION FLAMME************/
+let malus_X; //postion ballle X
+let malus_Y;//postion ballle Y
+let malus_dx = 1;//direction ballle X
+let malus_dy = -1;//direction ballle X
+let image_malus = new Image();
+image_malus.src = "images/flamme.png";
+image_malusWidth = 1;
+image_malusHeight = 1;
+malus_x = Math.floor(Math.random() * canvas.width);
+malus_y = Math.floor(Math.random() * canvas.height - paddleHeight);
+
+/****DRAW FLAMME****/
+function drawBallMalus() {
+    ctx.beginPath();
+    ctx.drawImage(image_malus, malus_x, malus_y, 20, 20);
+    ctx.closePath();
 }
 
 
 
+//******DRAW BOUCLIER****//
 function drawPaddle() {
     ctx.beginPath();
-    ctx.drawImage(padding, paddleX, canvas.height - paddleHeight * 2, 100, 100);
-    ctx.fillstyle = "#0095DD";
-    ctx.fill()
+    ctx.drawImage(image_paddle, paddleX, canvas.height - paddleHeight);
+    ctx.closePath();
+
+}
+//******DRAW SCORE****//
+
+function drawScore() {
+    ctx.font = "30px ReturnofGanon";
+    ctx.fillStyle = "#FFFFFF";
+    ctx.fillText("Score: " + score, canvas.width - 100, 22);
+
+}
+/*
+let image_ganon = new Image();
+image_ganon.src = "images/ganon.png";
+let ganonWidth = 75;
+let ganonHeight = 26;
+let ganonBottom = 10
+let ganonX = (canvas.width - image_ganon.width) / 6;
+*/
+
+function drawGameOver() {
+    let ganon = new Image()
+    ganon.src = 'images/ganon.png'
+    let text = document.querySelector('.text');
+    text.style.display = 'block';
+    text.style.position = 'absolute';
+    game.style.background = 'none';
+    game.style.background = 'none';
+    for (let i = 0; i < coeur_img.length; i++) {
+        coeur_img[i].style.display = 'none';
+    }
+    ctx.beginPath();
+    ctx.fillStyle = '#A83C2A'
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.closePath();
+    ctx.beginPath();
+    ctx.drawImage(ganon, (canvas.width - ganon.width) / 2, canvas.height - ganon.height);
     ctx.closePath();
 
 }
 
-function drawScore() {
-    ctx.font = "16px Arial";
-    ctx.fillStyle = "#0095DD";
-    ctx.fillText("Score: " + score, 8, 20);
-    let img = document.getElementById("image");
-    let img2 = document.getElementById("image1");
-    let img3 = document.getElementById("image2");
-}
+
 
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawBall();
-    drawPaddle();
     drawBricks();
+    drawPaddle();
+    drawBallMalus()
     collisionDetection();
     drawScore();
+
     if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
         dx = -dx;
     }
     if (y + dy > canvas.height && coeur == 0) {
         dy = -dy;
         score--;
-        document.getElementById("image").style.visibility = "hidden";
+
+        coeur_img[2].style.display = "none";
         coeur++;
     }
     else if (y + dy > canvas.height && coeur == 1) {
         dy = -dy;
         score--;
-        document.getElementById("image1").style.visibility = "hidden";
+        coeur_img[1].style.display = 'none';
         coeur++;
     }
     else if (y + dy > canvas.height && coeur == 2) {
-        dy = -dy;
-        score--;
-        document.getElementById("image2").style.visibility = "hidden";
-        alert("GAME OVER");
+
+        coeur_img[0].style.display = 'none';
+        return (drawBall(), drawBricks(), drawPaddle(), drawBallMalus(), collisionDetection(), drawScore(), drawGameOver())
+
+
+
     }
+
     if (y + dy < ballRadius) {
         dy = -dy;
     }
-
-    else if (y + dy > canvas.height - ballRadius) {
+    else if (y + dy > canvas.height - 15 - ballRadius) {
         if (x > paddleX && x < paddleX + paddleWidth) {
             dy = -dy;
         }
     }
-
     if (rightPressed && paddleX < canvas.width - paddleWidth) {
-        paddleX += 7;
+        paddleX += 5;
     }
     else if (leftPressed && paddleX > 0) {
-        paddleX -= 7;
+        paddleX -= 5;
     }
-
     x += dx;
     y += dy;
-}
 
-setInterval(draw, 10);
+    /*test*/
+    if (malus_x + malus_dx > canvas.width - ballRadius || malus_x + dx < ballRadius) {
+        malus_dx = -malus_dx;
+    }
+    if (malus_y + malus_dy > canvas.height) {
+        malus_dy = -malus_dy;
+    }
+
+    if (malus_y + malus_dy < ballRadius) {
+        malus_dy = -malus_dy;
+    }
+    else if (malus_y + malus_dy > canvas.height - 15 - ballRadius) {
+        if (malus_x > paddleX && malus_x < paddleX + paddleWidth) {
+
+            return (drawBall(), drawBricks(), drawPaddle(), drawBallMalus(), collisionDetection(), drawScore(), drawGameOver())
+
+
+        }
+    }
+
+    malus_x += malus_dx;
+    malus_y += malus_dy;
+}
+setInterval(draw, 5)

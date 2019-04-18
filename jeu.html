@@ -12,12 +12,18 @@
 
     <body>
         <div id="game">
-            <div id="ball"></div>
-            <img id="image" width="50" height="50" src="styles/images/coeur.png">
-            <img id="image1" width="50" height="50" src="styles/images/coeur1.png">
-            <img id="image2" width="50" height="50" src="styles/images/coeur2.png">
-            <img id="image3" width="50" height="50" src="styles/images/boomerang.gif">
-
+            <div class="coeur_img">
+                <img class="image" width="50" height="50" src="images/coeur.png">
+                <img class="image" width="50" height="50" src="images/coeur.png">
+                <img class="image" width="50" height="50" src="images/coeur.png">
+            </div>
+            <div class="text">
+                <div class="text_gameOver">
+                    <h2 class="titre">Game Over</h2>
+                    <a class="link" href="jeu.html"
+                        onclick="window.open(this.href);self.location.reload();return false();">Rejouer</a>
+                </div>
+            </div>
             <canvas id="myCanvas" width="800" height="600"></canvas>
         </div>
         <script src="scripts/jeu.js"></script>
