@@ -5,10 +5,6 @@ let score = 0
 let coeur = 0
 const coeur_img = document.querySelectorAll('.image')
 
-
-
-
-
 /************GESTION BOOMERANG************/
 
 
@@ -51,7 +47,8 @@ for (let c = 0; c < brickColumnCount; c++) {          //tableau a 2 dimension qu
         bricks[c][r] = { x: 0, y: 0, status: 1 };  //
     }
 }
-
+let image1 = new Image();
+image1.src = 'images/vase2_opt.png';
 /************DRAW BRICK************/
 function drawBricks() {
     for (let c = 0; c < brickColumnCount; c++) {
@@ -62,8 +59,7 @@ function drawBricks() {
                 bricks[c][r].x = brickX;
                 bricks[c][r].y = brickY;
                 ctx.beginPath();
-                let image1 = new Image();
-                image1.src = 'images/vase2_opt.png';
+
                 ctx.drawImage(image1, brickX, brickY, brickWidth, brickHeight);
                 ctx.closePath();
             }
@@ -109,20 +105,20 @@ function keyUpHandler(e) {
 
 //******COLLISION BALLE****//
 function collisionDetection() {
-    for (let c = 0; c < brickColumnCount; c++) {
-        for (let r = 0; r < brickRowCount; r++) {
+    for (let c = 0; c < brickColumnCount; c++) { //parcourir tab column
+        for (let r = 0; r < brickRowCount; r++) {// parcourir tab raw
             let b = bricks[c][r];
             if (b.status == 1) {
                 if (x > b.x && x < b.x + brickWidth && y > b.y && y < b.y + brickHeight) {
-                    dy = -dy;
+                    dy = -dy;               //si status = 1 inverser direction ball + status = 0(disparaitre brique)
                     b.status = 0;
                     score++;
-                    if (score >= 10) {
+                    if (score >= 10) { //vitesse ball
                         dx = 2;
                         dy = -2;
                     }
                     if (score >= 15) {
-                        dx = 2.5;
+                        dx = 2.5;   //vitesse ball
                         dy = -2.5;
                     }
                 }
@@ -131,16 +127,21 @@ function collisionDetection() {
     }
 }
 /************GESTION FLAMME************/
-let malus_X; //postion ballle X
-let malus_Y;//postion ballle Y
+let malus_x; //postion ballle X
+let malus_y;//postion ballle Y
 let malus_dx = 1;//direction ballle X
 let malus_dy = -1;//direction ballle X
 let image_malus = new Image();
 image_malus.src = "images/flamme.png";
 image_malusWidth = 1;
 image_malusHeight = 1;
-malus_x = Math.floor(Math.random() * canvas.width);
-malus_y = Math.floor(Math.random() * canvas.height - paddleHeight);
+do {
+    malus_x = Math.floor(Math.random() * canvas.width - 20);
+    malus_y = Math.floor(Math.random() * canvas.height - paddleHeight - 20);
+    console.log(malus_x, malus_y, canvas.height, paddleHeight)
+} while (malus_x < 0 || malus_y < 0 || malus_y > 580)
+
+
 
 /****DRAW FLAMME****/
 function drawBallMalus() {
@@ -149,6 +150,25 @@ function drawBallMalus() {
     ctx.closePath();
 }
 
+let malus2_X; //postion ballle X
+let malus2_Y;//postion ballle Y
+let malus2_dx = 1;//direction ballle X
+let malus2_dy = -1;//direction ballle X
+do {
+    malus2_x = Math.floor(Math.random() * canvas.width - 20);
+    malus2_y = Math.floor(Math.random() * canvas.height - paddleHeight - 20);
+    console.log(malus2_x, malus2_y, canvas.height, paddleHeight)
+} while (malus2_x < 0 || malus2_y < 0 || malus2_y > 580)
+image_malus2Width = 1;
+image_malus2Height = 1;
+
+
+/****DRAW FLAMME****/
+function drawBallMalus2() {
+    ctx.beginPath();
+    ctx.drawImage(image_malus, malus2_x, malus2_y, 20, 20);
+    ctx.closePath();
+}
 
 
 //******DRAW BOUCLIER****//
@@ -159,25 +179,22 @@ function drawPaddle() {
 
 }
 //******DRAW SCORE****//
-
+let image_score = new Image();
+image_score.src = 'images/ruby.png';
 function drawScore() {
+    ctx.beginPath();
+    ctx.drawImage(image_score, canvas.width - 125, 0, 15, 30);
+    ctx.closePath();
     ctx.font = "25px ReturnofGanon";
     ctx.fillStyle = "#FFFFFF";
-    ctx.fillText("Score: " + score, canvas.width - 100, 25);
+    ctx.fillText(": " + score, canvas.width - 100, 25);
 
 }
-/*
-let image_ganon = new Image();
-image_ganon.src = "images/ganon.png";
-let ganonWidth = 75;
-let ganonHeight = 26;
-let ganonBottom = 10
-let ganonX = (canvas.width - image_ganon.width) / 6;
-*/
 
+let ganon = new Image()
+ganon.src = 'images/ganon.png'
 function drawGameOver() {
-    let ganon = new Image()
-    ganon.src = 'images/ganon.png'
+
     let text = document.querySelector('.text');
     text.style.display = 'block';
     text.style.position = 'absolute';
@@ -190,6 +207,9 @@ function drawGameOver() {
     ctx.beginPath();
     ctx.drawImage(ganon, (canvas.width - ganon.width) / 2, canvas.height - ganon.height);
     ctx.closePath();
+    for (let i = 0; i < coeur_img.length; i++) {
+        coeur_img[i].style.display = 'none';
+    }
 }
 
 
@@ -200,8 +220,13 @@ function draw() {
     drawBricks();
     drawPaddle();
     drawBallMalus()
+
     collisionDetection();
     drawScore();
+    if (score > 5) {
+        drawBallMalus2();
+    }
+
 
     if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
         dx = -dx;
@@ -255,14 +280,38 @@ function draw() {
     }
     else if (malus_y + malus_dy > canvas.height - 15 - ballRadius) {
         if (malus_x > paddleX && malus_x < paddleX + paddleWidth)
+
             return (drawBall(), drawBricks(), drawPaddle(), drawBallMalus(), collisionDetection(), drawScore(), drawGameOver())
 
 
 
     }
 
+    /*test*/
+    if (malus2_x + malus2_dx > canvas.width - ballRadius || malus2_x + dx < ballRadius) {
+        malus2_dx = -malus2_dx;
+    }
+    if (malus2_y + malus2_dy > canvas.height) {
+        malus2_dy = -malus2_dy;
+    }
 
+    if (malus2_y + malus2_dy < ballRadius) {
+        malus2_dy = -malus2_dy;
+    }
+    else if (malus2_y + malus2_dy > canvas.height - 15 - ballRadius) {
+        if (malus2_x > paddleX && malus2_x < paddleX + paddleWidth)
+
+            return (drawBall(), drawBricks(), drawPaddle(), drawBallMalus(), collisionDetection(), drawScore(), drawGameOver())
+
+
+
+    }
     malus_x += malus_dx;
     malus_y += malus_dy;
+    malus2_x += malus2_dx;
+    malus2_y += malus2_dy;
+
+
+
 }
 setInterval(draw, 5)
