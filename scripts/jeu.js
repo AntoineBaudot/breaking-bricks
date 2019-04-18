@@ -4,26 +4,6 @@ const game = document.querySelector('#game')
 let score = 0
 let coeur = 0
 const coeur_img = document.querySelectorAll('.image')
-
-/************GESTION BOOMERANG************/
-
-
-let ballRadius = 10;
-let x = canvas.width / 2;
-let y = canvas.height - 30;
-let dx = 1;
-let dy = -1;
-let image_boomerang = new Image();
-image_boomerang.src = "images/boomerang2.png";
-imageWidth = 1;
-imageHeight = 1;
-
-function drawBall() {
-    ctx.beginPath();
-    ctx.drawImage(image_boomerang, x, y, 20, 20);
-    ctx.closePath();
-}
-
 /************GESTION BRIQUE************/
 
 
@@ -56,7 +36,6 @@ function drawBricks() {
                 bricks[c][r].x = brickX;
                 bricks[c][r].y = brickY;
                 ctx.beginPath();
-
                 ctx.drawImage(image1, brickX, brickY, brickWidth, brickHeight);
                 ctx.closePath();
             }
@@ -77,8 +56,6 @@ let rightPressed = false
 let leftPressed = false;
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
-
-
 
 /**********GESTION FLECHE**********/
 function keyDownHandler(e) {
@@ -123,6 +100,25 @@ function collisionDetection() {
         }
     }
 }
+/************GESTION BOOMERANG************/
+
+
+let ballRadius = 10;
+let x = canvas.width / 2;
+let y = canvas.height - 30;
+let dx = 1;
+let dy = -1;
+let image_boomerang = new Image();
+image_boomerang.src = "images/boomerang2.png";
+imageWidth = 1;
+imageHeight = 1;
+
+function drawBall() {
+    ctx.beginPath();
+    ctx.drawImage(image_boomerang, x, y, 20, 20);
+    ctx.closePath();
+}
+
 /************GESTION FLAMME************/
 let malus_x; //postion ballle X
 let malus_y;//postion ballle Y
