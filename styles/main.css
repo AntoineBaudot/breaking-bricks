@@ -2,6 +2,10 @@
   font-family: "triforce";
   src:url("../font/Triforce.ttf");
 }
+@font-face {
+  font-family: "ReturnofGanon";
+  src:url("../font/ReturnofGanon.ttf");
+}
 body{
   margin:0;
   padding:0;
@@ -72,4 +76,12 @@ button{
   display: flex;
   align-items: center;
 
+}
+.play a{
+  font-family: "triforce";
+  font-size: 35px;
+}
+.jouer {
+  font-family: "ReturnofGanon";
+  font-size: 40px;
 }
