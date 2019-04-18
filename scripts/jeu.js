@@ -29,21 +29,6 @@ function drawBall() {
 }
 
 
-/************GESTION FLAMME************/
-let malus_x = canvas.width - 10; //postion ballle X
-let malus_y = canvas.height - 30;//postion ballle Y
-let malus_dx = 1;//direction ballle X
-let malus_dy = -1;//direction ballle X
-let image_malus = new Image();
-image_malus.src = "images/flamme.png";
-image_malusWidth = 1;
-image_malusHeight = 1;
-/****DRAW FLAMME****/
-function drawBallMalus() {
-    ctx.beginPath();
-    ctx.drawImage(image_malus, malus_x, malus_y, 20, 20);
-    ctx.closePath();
-}
 
 
 /************GESTION BRIQUE************/
@@ -145,6 +130,24 @@ function collisionDetection() {
         }
     }
 }
+/************GESTION FLAMME************/
+let malus_X; //postion ballle X
+let malus_Y;//postion ballle Y
+let malus_dx = 1;//direction ballle X
+let malus_dy = -1;//direction ballle X
+let image_malus = new Image();
+image_malus.src = "images/flamme.png";
+image_malusWidth = 1;
+image_malusHeight = 1;
+malus_x = Math.floor(Math.random() * canvas.width);
+malus_y = Math.floor(Math.random() * canvas.height - paddleHeight);
+
+/****DRAW FLAMME****/
+function drawBallMalus() {
+    ctx.beginPath();
+    ctx.drawImage(image_malus, malus_x, malus_y, 20, 20);
+    ctx.closePath();
+}
 
 
 
@@ -158,9 +161,9 @@ function drawPaddle() {
 //******DRAW SCORE****//
 
 function drawScore() {
-    ctx.font = "20px Triforce";
+    ctx.font = "30px ReturnofGanon";
     ctx.fillStyle = "#FFFFFF";
-    ctx.fillText("Score: " + score, 30, 20);
+    ctx.fillText("Score: " + score, canvas.width - 100, 22);
 
 }
 /*
@@ -173,13 +176,11 @@ let ganonX = (canvas.width - image_ganon.width) / 6;
 */
 
 function drawGameOver() {
-
     let ganon = new Image()
     ganon.src = 'images/ganon.png'
     let text = document.querySelector('.text');
     text.style.display = 'block';
     text.style.position = 'absolute';
-
     game.style.background = 'none';
     game.style.background = 'none';
     for (let i = 0; i < coeur_img.length; i++) {
@@ -192,9 +193,6 @@ function drawGameOver() {
     ctx.beginPath();
     ctx.drawImage(ganon, (canvas.width - ganon.width) / 2, canvas.height - ganon.height);
     ctx.closePath();
-
-
-
 
 }
 
@@ -226,10 +224,14 @@ function draw() {
         coeur++;
     }
     else if (y + dy > canvas.height && coeur == 2) {
-        dy = -dy;
-        score--;
+
         coeur_img[0].style.display = 'none';
+        return (drawBall(), drawBricks(), drawPaddle(), drawBallMalus(), collisionDetection(), drawScore(), drawGameOver())
+
+
+
     }
+
     if (y + dy < ballRadius) {
         dy = -dy;
     }
@@ -257,7 +259,6 @@ function draw() {
 
     if (malus_y + malus_dy < ballRadius) {
         malus_dy = -malus_dy;
-
     }
     else if (malus_y + malus_dy > canvas.height - 15 - ballRadius) {
         if (malus_x > paddleX && malus_x < paddleX + paddleWidth) {
@@ -267,6 +268,7 @@ function draw() {
 
         }
     }
+
     malus_x += malus_dx;
     malus_y += malus_dy;
 }

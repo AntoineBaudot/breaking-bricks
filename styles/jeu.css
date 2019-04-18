@@ -1,6 +1,6 @@
 @font-face {
-  font-family: "triforce";
-  src:url("../font/Triforce.ttf");
+  font-family: "ReturnofGanon";
+  src:url("../font/ReturnofGanon.ttf");
 }
 body {
   margin: 0;
@@ -29,7 +29,7 @@ display:block;;
 
 }
 .titre {
-  font-family: 'triforce';
+  font-family: 'ReturnofGanon';
   font-size: 60px;
   color: white;
   top:10%;
@@ -54,10 +54,10 @@ visibility:hidden;
   font-size:40px;
   color: white;
   text-decoration: none;
-  font-family: 'triforce';
+  font-family: 'ReturnofGanon';
   top: 32%;
 
-  
+
 }
 #ball {
   width: 20px;
@@ -67,4 +67,13 @@ visibility:hidden;
   background:url('../styles/images/flamme.png');
   background-repeat: no-repeat;
   background-size: cover;
+}
+.coeur_img {
+  position: absolute;
+  
+}
+.image {
+  width: 40px;
+  height: 40px;
+  
 }
