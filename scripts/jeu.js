@@ -48,7 +48,7 @@ for (let c = 0; c < brickColumnCount; c++) {          //tableau a 2 dimension qu
     }
 }
 let image1 = new Image();
-image1.src = 'images/vase2_opt.png';
+image1.src = '../images/vase2_opt.png';
 /************DRAW BRICK************/
 function drawBricks() {
     for (let c = 0; c < brickColumnCount; c++) {
@@ -71,7 +71,7 @@ function drawBricks() {
 /**********GESTION PADDLE**********/
 
 let image_paddle = new Image();
-image_paddle.src = "images/bouclier.png";
+image_paddle.src = "../images/bouclier.png";
 let paddleWidth = 75;
 let paddleHeight = 26;
 let paddleBottom = 10
@@ -132,7 +132,7 @@ let malus_y;//postion ballle Y
 let malus_dx = 1;//direction ballle X
 let malus_dy = -1;//direction ballle X
 let image_malus = new Image();
-image_malus.src = "images/flamme.png";
+image_malus.src = "../images/flamme.png";
 image_malusWidth = 1;
 image_malusHeight = 1;
 do {
@@ -180,7 +180,7 @@ function drawPaddle() {
 }
 //******DRAW SCORE****//
 let image_score = new Image();
-image_score.src = 'images/ruby.png';
+image_score.src = '../images/ruby.png';
 function drawScore() {
     ctx.beginPath();
     ctx.drawImage(image_score, canvas.width - 125, 0, 15, 30);
@@ -192,7 +192,7 @@ function drawScore() {
 }
 
 let ganon = new Image()
-ganon.src = 'images/ganon.png'
+ganon.src = '../images/ganon.png'
 function drawGameOver() {
 
     let text = document.querySelector('.text');
