@@ -57,7 +57,7 @@ function drawBricks() {
     for (let c = 0; c < brickColumnCount; c++) {
         for (let r = 0; r < brickRowCount; r++) {
             if (bricks[c][r].status == 1) {
-                let brickX = (c * (brickWidth+ brickPadding)) + brickOffsetLeft;//position brick X
+                let brickX = (c * (brickWidth+ brickPadding)) + brickOffsetLeft;//
                 let brickY = (r * (brickHeight + brickPadding)) + brickOffsetTop;//position brick y
                 bricks[c][r].x = brickX;
                 bricks[c][r].y = brickY;
