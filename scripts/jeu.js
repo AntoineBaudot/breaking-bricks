@@ -13,19 +13,16 @@ let x = canvas.width / 2;
 let y = canvas.height - 30;
 let dx = 1;
 let dy = -1;
-let image = new Image();
-image.src = "images/boomerang2.png";
+let image_boomerang = new Image();
+image_boomerang.src = "images/boomerang2.png";
 imageWidth = 1;
 imageHeight = 1;
 
 function drawBall() {
     ctx.beginPath();
-    ctx.drawImage(image, x, y, 20, 20);
+    ctx.drawImage(image_boomerang, x, y, 20, 20);
     ctx.closePath();
 }
-
-
-
 
 /************GESTION BRIQUE************/
 
