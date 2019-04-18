@@ -228,9 +228,6 @@ function draw() {
 
         coeur_img[0].style.display = 'none';
         return (drawBall(), drawBricks(), drawPaddle(), drawBallMalus(), collisionDetection(), drawScore(), drawGameOver())
-
-
-
     }
 
     if (y + dy < ballRadius) {
@@ -262,12 +259,11 @@ function draw() {
         malus_dy = -malus_dy;
     }
     else if (malus_y + malus_dy > canvas.height - 15 - ballRadius) {
-        if (malus_x > paddleX && malus_x < paddleX + paddleWidth) {
+        if (malus_x > paddleX && malus_x < paddleX + paddleWidth)
+      return (drawBall(), drawBricks(), drawPaddle(), drawBallMalus(), collisionDetection(), drawScore(), drawGameOver())
 
-            return (drawBall(), drawBricks(), drawPaddle(), drawBallMalus(), collisionDetection(), drawScore(), drawGameOver())
 
 
-        }
     }
 
     malus_x += malus_dx;
