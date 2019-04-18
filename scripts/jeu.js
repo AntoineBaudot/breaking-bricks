@@ -39,8 +39,8 @@ let brickColumnCount = 17;
 let brickWidth = 25;
 let brickHeight = 30;
 let brickPadding = 20;
-let brickOffsetTop = 30;
-let brickOffsetLeft = 30;
+let brickOffsetTop =20;
+let brickOffsetLeft = 20;
 let j = 0;
 
 /************CREATION TABLEAU BRIQUE************/
@@ -57,7 +57,7 @@ function drawBricks() {
     for (let c = 0; c < brickColumnCount; c++) {
         for (let r = 0; r < brickRowCount; r++) {
             if (bricks[c][r].status == 1) {
-                let brickX = (c * (brickWidth + brickPadding)) + brickOffsetLeft;//position brick X
+                let brickX = (c * (brickWidth+ brickPadding)) + brickOffsetLeft;//position brick X
                 let brickY = (r * (brickHeight + brickPadding)) + brickOffsetTop;//position brick y
                 bricks[c][r].x = brickX;
                 bricks[c][r].y = brickY;
@@ -196,10 +196,10 @@ function drawGameOver() {
 
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawBall();
     drawBricks();
-    drawPaddle();
+    drawBall();
     drawBallMalus()
+    drawPaddle();
     collisionDetection();
     drawScore();
 
@@ -253,12 +253,9 @@ function draw() {
     if (malus_y + malus_dy < ballRadius) {
         malus_dy = -malus_dy;
     }
-    else if (malus_y + malus_dy > canvas.height - 15 - ballRadius) {
+    else if (malus_y + malus_dy > canvas.height - 35 - ballRadius) {
         if (malus_x > paddleX && malus_x < paddleX + paddleWidth)
       return (drawBall(), drawBricks(), drawPaddle(), drawBallMalus(), collisionDetection(), drawScore(), drawGameOver())
-
-
-
     }
 
 
