@@ -161,9 +161,9 @@ function drawPaddle() {
 //******DRAW SCORE****//
 
 function drawScore() {
-    ctx.font = "45px ReturnofGanon";
+    ctx.font = "25px ReturnofGanon";
     ctx.fillStyle = "#FFFFFF";
-    ctx.fillText("Score: " + score, canvas.width - 140, 30);
+    ctx.fillText("Score: " + score, canvas.width - 100, 25);
 
 }
 /*
@@ -255,7 +255,7 @@ function draw() {
     }
     else if (malus_y + malus_dy > canvas.height - 15 - ballRadius) {
         if (malus_x > paddleX && malus_x < paddleX + paddleWidth)
-      return (drawBall(), drawBricks(), drawPaddle(), drawBallMalus(), collisionDetection(), drawScore(), drawGameOver())
+            return (drawBall(), drawBricks(), drawPaddle(), drawBallMalus(), collisionDetection(), drawScore(), drawGameOver())
 
 
 
