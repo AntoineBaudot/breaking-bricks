@@ -14,7 +14,7 @@ let y = canvas.height - 30;
 let dx = 1;
 let dy = -1;
 let image = new Image();
-image.src = "images/boomerang2.png";
+image.src = "images/Boomerang2.png";
 imageWidth = 1;
 imageHeight = 1;
 
