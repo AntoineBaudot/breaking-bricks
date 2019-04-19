@@ -3,37 +3,28 @@
 
     <head>
         <meta charset="UTF-8">
-        <title>Zelda Brics</title>
-        <meta name="description" content="Description de ma page pour les moteurs de recherche">
+        <meta name="description" content="Descption de la page">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <link rel="icon" type="image/png" href="images/zelda_icon.png" />
-
         <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
         <link rel="stylesheet" href="styles/jeu.css">
+        <title>Document</title>
     </head>
 
     <body>
-        <header>
-            <img src="images\zeldalogo.png" alt="Logo Zelda">
-        </header>
-        <main>
-            <img class="zelada_index" type="image/png" src="images/zelada_index2.png" alt="zelda">
-            <div id="game">
-                <div class="coeur_img">
-                    <img class="image" width="50" height="50" src="images/coeur.png">
-                    <img class="image" width="50" height="50" src="images/coeur.png">
-                    <img class="image" width="50" height="50" src="images/coeur.png">
-                </div>
-                <div class="text">
-                    <div class="text_gameOver">
-                        <h2 class="titre">Game Over</h2>
-                        <a class="link" href="jeu.html" target="jeu.html">Rejouer</a>
-                    </div>
-                </div>
-                <canvas id="myCanvas" width="800" height="600"></canvas>
+        <div id="game">
+            <div class="coeur_img">
+                <img class="image" width="50" height="50" src="images/coeur.png">
+                <img class="image" width="50" height="50" src="images/coeur.png">
+                <img class="image" width="50" height="50" src="images/coeur.png">
             </div>
-            <img class="zelada_index" type="image/png" src="images/zelada_index.png" alt="zelda">
-        </main>
+            <div class="text">
+                <div class="text_gameOver">
+                    <h2 class="titre">Game Over</h2>
+                    <a class="link" href="jeu.html" onclick="window.location.reload();return false();">Rejouer</a>
+                </div>
+            </div>
+            <canvas id="myCanvas" width="800" height="600"></canvas>
+        </div>
         <script src="scripts/jeu.js"></script>
     </body>
 

@@ -2,17 +2,12 @@
   font-family: "triforce";
   src:url("../font/Triforce.ttf");
 }
-@font-face {
-  font-family: "ReturnofGanon";
-  src:url("../font/ReturnofGanon.ttf");
-}
 body{
   margin:0;
   padding:0;
   height: 100vh;
   width: 100vw;
   background-image: url("../images/zelda1.jpg");
-  box-sizing: border-box;
 }
 
 header {
@@ -31,15 +26,6 @@ main{
   height: 100vh;
   width: 100vw;
     background-color: rgba(0, 0, 0, 0.500);
-    
-}
-article {
-  display: flex;
-  justify-content: space-around;
-}
-nav {
-  display: flex;
-  flex-direction: column
 }
 
 h2{
@@ -86,12 +72,4 @@ button{
   display: flex;
   align-items: center;
 
-}
-.play a{
-  font-family: "triforce";
-  font-size: 35px;
-}
-.jouer {
-  font-family: "ReturnofGanon";
-  font-size: 40px;
 }
