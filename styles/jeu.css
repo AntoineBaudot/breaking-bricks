@@ -18,7 +18,6 @@ body {
   width: 60%;
   height: 40%;
   margin: auto;
-
   position: relative;
 
 }
@@ -80,8 +79,4 @@ visibility:hidden;
   width: 20px;
   height: 20px;
   
-}
-
-main {
-  display: flex;
 }
