@@ -1,10 +1,31 @@
-const body = document.querySelector('body');
 const canvas = document.querySelector("#myCanvas");
 let ctx = canvas.getContext("2d");
 const game = document.querySelector('#game')
 let score = 0
 let coeur = 0
 const coeur_img = document.querySelectorAll('.image')
+
+/************GESTION BOOMERANG************/
+
+
+let ballRadius = 10;
+let x = canvas.width / 2;
+let y = canvas.height - 30;
+let dx = 1;
+let dy = -1;
+let image = new Image();
+image.src = "images/Boomerang2.png";
+imageWidth = 1;
+imageHeight = 1;
+
+function drawBall() {
+    ctx.beginPath();
+    ctx.drawImage(image, x, y, 20, 20);
+    ctx.closePath();
+}
+
+
+
 
 /************GESTION BRIQUE************/
 
@@ -59,13 +80,7 @@ let rightPressed = false
 let leftPressed = false;
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
-//******DRAW BOUCLIER****//
-function drawPaddle() {
-    ctx.beginPath();
-    ctx.drawImage(image_paddle, paddleX, canvas.height - paddleHeight);
-    ctx.closePath();
 
-}
 
 
 /**********GESTION FLECHE**********/
@@ -111,28 +126,6 @@ function collisionDetection() {
         }
     }
 }
-
-
-/************GESTION BOOMERANG************/
-
-
-let ballRadius = 10;
-let x = canvas.width / 2;
-let y = canvas.height - 30;
-let dx = 1;
-let dy = -1;
-let image = new Image();
-image.src = "images/Boomerang2.png";
-imageWidth = 1;
-imageHeight = 1;
-
-function drawBall() {
-    ctx.beginPath();
-    ctx.drawImage(image, x, y, 20, 20);
-    ctx.closePath();
-}
-
-
 /************GESTION FLAMME************/
 let malus_x; //postion ballle X
 let malus_y;//postion ballle Y
@@ -145,7 +138,8 @@ image_malusHeight = 1;
 do {
     malus_x = Math.floor(Math.random() * canvas.width - 20);
     malus_y = Math.floor(Math.random() * canvas.height - paddleHeight - 20);
-} while (malus_x < 0 || malus_y < 0 || malus_y > 555)
+    console.log(malus_x, malus_y, canvas.height, paddleHeight)
+} while (malus_x < 0 || malus_y < 0 || malus_y > 580)
 
 
 
@@ -163,7 +157,8 @@ let malus2_dy = -1;//direction ballle X
 do {
     malus2_x = Math.floor(Math.random() * canvas.width - 20);
     malus2_y = Math.floor(Math.random() * canvas.height - paddleHeight - 20);
-} while (malus2_x < 0 || malus2_y < 0 || malus2_y > 555)
+    console.log(malus2_x, malus2_y, canvas.height, paddleHeight)
+} while (malus2_x < 0 || malus2_y < 0 || malus2_y > 580)
 image_malus2Width = 1;
 image_malus2Height = 1;
 
@@ -176,7 +171,13 @@ function drawBallMalus2() {
 }
 
 
+//******DRAW BOUCLIER****//
+function drawPaddle() {
+    ctx.beginPath();
+    ctx.drawImage(image_paddle, paddleX, canvas.height - paddleHeight);
+    ctx.closePath();
 
+}
 //******DRAW SCORE****//
 let image_score = new Image();
 image_score.src = 'images/ruby.png';
@@ -187,7 +188,8 @@ function drawScore() {
     ctx.font = "25px ReturnofGanon";
     ctx.fillStyle = "#FFFFFF";
     ctx.fillText(": " + score, canvas.width - 100, 25);
-    ctx.closePath();
+
+
 
 }
 
@@ -199,12 +201,12 @@ function drawGameOver() {
     text.style.display = 'block';
     text.style.position = 'absolute';
     game.style.background = 'none';
-    body.style.background = "#A83C2A";
-    canvas.style.border = 'none';
-    canvas.height = window.innerHeight;
+    canvas.style.border = "none";
+    let height_GameOver = window.innerHeight;
+    let width_GameOver = window.innerWidth;
     ctx.beginPath();
     ctx.fillStyle = '#A83C2A'
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillRect(0, 0, width_GameOver, height_GameOver);
     ctx.closePath();
     ctx.beginPath();
     ctx.drawImage(ganon, (canvas.width - ganon.width) / 2, canvas.height - ganon.height);
@@ -212,6 +214,9 @@ function drawGameOver() {
     for (let i = 0; i < coeur_img.length; i++) {
         coeur_img[i].style.display = 'none';
     }
+    const body = document.querySelector('body');
+
+    body.style.background = "#A83C2A"
 }
 
 
@@ -222,24 +227,27 @@ function draw() {
     drawBricks();
     drawPaddle();
     drawBallMalus()
+
     collisionDetection();
     drawScore();
     if (score > 5) {
         drawBallMalus2();
     }
+
+
     if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
         dx = -dx;
     }
     if (y + dy > canvas.height && coeur == 0) {
         dy = -dy;
-
+        score--;
 
         coeur_img[2].style.display = "none";
         coeur++;
     }
     else if (y + dy > canvas.height && coeur == 1) {
         dy = -dy;
-
+        score--;
         coeur_img[1].style.display = 'none';
         coeur++;
     }
@@ -266,7 +274,7 @@ function draw() {
     x += dx;
     y += dy;
 
-    //BALLE MALUS
+    /*test*/
     if (malus_x + malus_dx > canvas.width - ballRadius || malus_x + dx < ballRadius) {
         malus_dx = -malus_dx;
     }
@@ -279,10 +287,14 @@ function draw() {
     }
     else if (malus_y + malus_dy > canvas.height - 15 - ballRadius) {
         if (malus_x > paddleX && malus_x < paddleX + paddleWidth)
+
             return (drawBall(), drawBricks(), drawPaddle(), drawBallMalus(), collisionDetection(), drawScore(), drawGameOver())
+
+
+
     }
 
-
+    /*test*/
     if (malus2_x + malus2_dx > canvas.width - ballRadius || malus2_x + dx < ballRadius) {
         malus2_dx = -malus2_dx;
     }
@@ -297,6 +309,9 @@ function draw() {
         if (malus2_x > paddleX && malus2_x < paddleX + paddleWidth)
 
             return (drawBall(), drawBricks(), drawPaddle(), drawBallMalus(), collisionDetection(), drawScore(), drawGameOver())
+
+
+
     }
     malus_x += malus_dx;
     malus_y += malus_dy;
