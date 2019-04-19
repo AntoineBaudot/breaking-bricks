@@ -139,7 +139,7 @@ do {
     malus_x = Math.floor(Math.random() * canvas.width - 20);
     malus_y = Math.floor(Math.random() * canvas.height - paddleHeight - 20);
     console.log(malus_x, malus_y, canvas.height, paddleHeight)
-} while (malus_x < 0 || malus_y < 0 || malus_y > 580)
+} while (malus_x < 20 || malus_y < 0 || malus_y > 555)
 
 
 
@@ -158,7 +158,7 @@ do {
     malus2_x = Math.floor(Math.random() * canvas.width - 20);
     malus2_y = Math.floor(Math.random() * canvas.height - paddleHeight - 20);
     console.log(malus2_x, malus2_y, canvas.height, paddleHeight)
-} while (malus2_x < 0 || malus2_y < 0 || malus2_y > 580)
+} while (malus2_x < 20 || malus2_y < 0 || malus2_y > 555)
 image_malus2Width = 1;
 image_malus2Height = 1;
 
