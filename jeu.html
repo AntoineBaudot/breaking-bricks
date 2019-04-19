@@ -13,20 +13,27 @@
     </head>
 
     <body>
-        <div id="game">
-            <div class="coeur_img">
-                <img class="image" width="50" height="50" src="images/coeur.png">
-                <img class="image" width="50" height="50" src="images/coeur.png">
-                <img class="image" width="50" height="50" src="images/coeur.png">
-            </div>
-            <div class="text">
-                <div class="text_gameOver">
-                    <h2 class="titre">Game Over</h2>
-                    <a class="link" href="jeu.html" onclick="window.location.reload();return false();">Rejouer</a>
+        <header>
+            <img src="images\zeldalogo.png" alt="Logo Zelda">
+        </header>
+        <main>
+            <img class="zelada_index" type="image/png" src="images/zelada_index2.png" alt="zelda">
+            <div id="game">
+                <div class="coeur_img">
+                    <img class="image" width="50" height="50" src="images/coeur.png">
+                    <img class="image" width="50" height="50" src="images/coeur.png">
+                    <img class="image" width="50" height="50" src="images/coeur.png">
                 </div>
+                <div class="text">
+                    <div class="text_gameOver">
+                        <h2 class="titre">Game Over</h2>
+                        <a class="link" href="jeu.html" target="jeu.html">Rejouer</a>
+                    </div>
+                </div>
+                <canvas id="myCanvas" width="800" height="600"></canvas>
             </div>
-            <canvas id="myCanvas" width="800" height="600"></canvas>
-        </div>
+            <img class="zelada_index" type="image/png" src="images/zelada_index.png" alt="zelda">
+        </main>
         <script src="scripts/jeu.js"></script>
     </body>
 
